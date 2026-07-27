@@ -105,10 +105,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     <img
                       src={project.imagePng}
                       alt={project.title[lang]}
-                      width="600"
-                      height="338"
                       loading="lazy"
-                      decoding="async"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
                     />
                   </picture>
@@ -136,7 +133,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
 
                   {/* Featured Badge */}
                   {project.featured && (
-                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-teal-500/90 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-md flex items-center gap-1">
+                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-teal-500/90 text-white text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-md flex items-center gap-1">
                       <Sparkles className="w-3 h-3" />
                       <span>{t.featuredBadge}</span>
                     </div>
@@ -240,10 +237,6 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     <img
                       src={selectedProject.imagePng}
                       alt={selectedProject.title[lang]}
-                      width="600"
-                      height="338"
-                      loading="lazy"
-                      decoding="async"
                       className="w-full h-full object-cover"
                     />
                   </picture>

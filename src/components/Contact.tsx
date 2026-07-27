@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Send, Copy, Check, MapPin, Sparkles, CheckCircle, MessageSquare } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import { PERSONAL_INFO, UI_TRANSLATIONS } from '../data/portfolioData';
 import { Language } from '../types';
 
@@ -30,22 +31,17 @@ export default function Contact({ lang }: ContactProps) {
     // Open email client with pre-filled content
     window.location.href = mailtoUrl;
 
-    setTimeout(async () => {
+    setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
 
-      // Trigger Confetti Effect dynamically!
-      try {
-        const { default: confetti } = await import('canvas-confetti');
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#14b8a6', '#10b981', '#06b6d4', '#3b82f6']
-        });
-      } catch (err) {
-        console.error(err);
-      }
+      // Trigger Confetti Effect!
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#14b8a6', '#10b981', '#06b6d4', '#3b82f6']
+      });
 
       // Reset form after 5s
       setTimeout(() => {
@@ -124,7 +120,6 @@ export default function Contact({ lang }: ContactProps) {
                   onClick={copyEmailToClipboard}
                   className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-teal-600 shrink-0 relative"
                   title="Copy Email"
-                  aria-label="Copy Email"
                 >
                   {copiedEmail ? <Check className="w-5 h-5 text-emerald-500" /> : <Copy className="w-5 h-5" />}
                 </motion.button>

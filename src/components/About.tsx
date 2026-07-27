@@ -175,16 +175,16 @@ export default function About({ lang }: AboutProps) {
                     {item.title[lang]}
                   </h4>
 
-                  <p className="text-sm font-semibold text-teal-600 dark:text-teal-400 mb-3">
+                  <p className="text-xs font-semibold text-teal-600 dark:text-teal-400 mb-3">
                     {item.organization}
                   </p>
 
-                  <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                     {item.description[lang]}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center gap-2 text-xs sm:text-sm text-teal-600 dark:text-teal-400 font-medium">
+                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center gap-2 text-xs text-teal-600 dark:text-teal-400 font-medium">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>{t.completedBadge}</span>
                 </div>

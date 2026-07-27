@@ -115,7 +115,7 @@ export default function Skills({ lang }: SkillsProps) {
                       {skill.name}
                     </h3>
 
-                    <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                       {skill.description[lang]}
                     </p>
                   </div>

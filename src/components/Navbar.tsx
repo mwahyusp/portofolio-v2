@@ -26,17 +26,10 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
   });
 
   useEffect(() => {
-    let ticking = false;
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 20);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -76,9 +69,6 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
                   <img
                     src={PERSONAL_INFO.logoPng}
                     alt="Logo MWSP"
-                    width="36"
-                    height="36"
-                    decoding="async"
                     className="h-9 w-auto object-contain transition-opacity duration-300"
                   />
                 </picture>
