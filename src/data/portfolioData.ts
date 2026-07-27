@@ -310,7 +310,7 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317696/paws-grooming_dnqeh0.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317740/paws-grooming_diuoe1.png',
-    liveDemoUrl: 'https://mwahyusp.github.io/paws-grooming/',
+    liveDemoUrl: 'https://paws-groooming.vercel.app/',
     githubUrl: 'https://github.com/mwahyusp/paws-grooming',
     tags: ['HTML5', 'Tailwind CSS', 'JavaScript', 'Responsive UI'],
     featured: false
