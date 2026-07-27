@@ -322,7 +322,7 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317696/paws-grooming_dnqeh0.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317740/paws-grooming_diuoe1.png',
-    liveDemoUrl: 'https://mwahyusp.github.io/paws-grooming/',
+    liveDemoUrl: 'https://paws-grooming-seven.vercel.app/',
     githubUrl: 'https://github.com/mwahyusp/paws-grooming',
     tags: ['HTML5', 'Tailwind CSS', 'JavaScript', 'Responsive UI'],
     featured: false
@@ -345,7 +345,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318159/contact-apps_lyrmyz.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318147/contact-apps_hzkzc9.png',
     liveDemoUrl: 'https://contacts-app-nine.vercel.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/contacts-app',
     tags: ['React.js', 'State Management', 'Search Filter', 'Tailwind CSS'],
     featured: false
   },
@@ -367,7 +367,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171923/my-privy-noter_tihfp9.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171924/my-privy-noter_lvtyif.png',
     liveDemoUrl: 'https://my-privy-noter.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/my-privy-noter',
     tags: ['React.js', 'Notes System', 'Archive Feature', 'CSS Modules'],
     featured: false
   },
@@ -389,7 +389,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318159/simple-blog_uvho0d.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318147/simple-blog_rdhkkj.png',
     liveDemoUrl: 'https://simplee-blog.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/simple-blog-rvt',
     tags: ['React.js', 'Vite', 'Tailwind CSS', 'Full CRUD'],
     featured: false
   },
@@ -433,7 +433,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757929313/contact-form-next_baslyl.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757929350/contact-form-next_hsakcs.png',
     liveDemoUrl: 'https://contact-form-nextjs.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/contact-form-nextjs',
     tags: ['Next.js', 'Tailwind CSS', 'Form Handling', 'React Hooks'],
     featured: false
   },
