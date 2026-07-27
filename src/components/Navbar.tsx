@@ -69,6 +69,9 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
                   <img
                     src={PERSONAL_INFO.logoPng}
                     alt="Logo MWSP"
+                    width="36"
+                    height="36"
+                    decoding="async"
                     className="h-9 w-auto object-contain transition-opacity duration-300"
                   />
                 </picture>

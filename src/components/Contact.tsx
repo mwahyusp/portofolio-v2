@@ -22,7 +22,15 @@ export default function Contact({ lang }: ContactProps) {
 
     setIsSubmitting(true);
 
-    // Simulate sending form message
+    const subject = encodeURIComponent(`[Portofolio MWSP] Pesan Baru dari ${formData.name}`);
+    const body = encodeURIComponent(
+      `Halo Wahyu,\n\nSaya ${formData.name} (${formData.email}) mengirimkan pesan melalui form portofolio:\n\n"${formData.message}"\n\nTerima kasih!`
+    );
+    const mailtoUrl = `mailto:${PERSONAL_INFO.email}?subject=${subject}&body=${body}`;
+
+    // Open email client with pre-filled content
+    window.location.href = mailtoUrl;
+
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -40,7 +48,7 @@ export default function Contact({ lang }: ContactProps) {
         setSubmitted(false);
         setFormData({ name: '', email: '', message: '' });
       }, 5000);
-    }, 1200);
+    }, 800);
   };
 
   const copyEmailToClipboard = () => {
@@ -112,6 +120,7 @@ export default function Contact({ lang }: ContactProps) {
                   onClick={copyEmailToClipboard}
                   className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-teal-600 shrink-0 relative"
                   title="Copy Email"
+                  aria-label="Copy Email"
                 >
                   {copiedEmail ? <Check className="w-5 h-5 text-emerald-500" /> : <Copy className="w-5 h-5" />}
                 </motion.button>

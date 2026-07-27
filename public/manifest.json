@@ -1,0 +1,21 @@
+{
+  "short_name": "MWSP",
+  "name": "Mohammad Wahyu Sanusi Putra - Portfolio",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/dslkxsifx/image/upload/f_auto,q_auto,w_192/v1757171950/mwsp-1-green_zqsifx.webp",
+      "type": "image/webp",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://res.cloudinary.com/dslkxsifx/image/upload/f_auto,q_auto,w_512/v1757171950/mwsp-1-green_zqsifx.webp",
+      "type": "image/webp",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0f172a",
+  "theme_color": "#14b8a6",
+  "display": "standalone",
+  "description": "Portfolio Front-End Developer Mohammad Wahyu Sanusi Putra (mwahyusp) - React.js, Next.js, TypeScript, Tailwind CSS."
+}

@@ -175,6 +175,10 @@ export default function Hero({ lang }: HeroProps) {
                   <img
                     src={PERSONAL_INFO.profileImagePng}
                     alt={PERSONAL_INFO.name}
+                    width="384"
+                    height="384"
+                    fetchPriority="high"
+                    decoding="async"
                     className="w-full h-full object-cover rounded-full border-4 border-white dark:border-slate-800 shadow-2xl transition-all duration-300 group-hover:shadow-teal-500/20"
                   />
                 </picture>

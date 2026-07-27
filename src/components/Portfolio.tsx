@@ -105,7 +105,10 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     <img
                       src={project.imagePng}
                       alt={project.title[lang]}
+                      width="600"
+                      height="338"
                       loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
                     />
                   </picture>
@@ -237,6 +240,10 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     <img
                       src={selectedProject.imagePng}
                       alt={selectedProject.title[lang]}
+                      width="600"
+                      height="338"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover"
                     />
                   </picture>

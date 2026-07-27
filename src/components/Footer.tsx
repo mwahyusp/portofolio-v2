@@ -22,6 +22,10 @@ export default function Footer({ lang }: FooterProps) {
                 <img
                   src={PERSONAL_INFO.logoPng}
                   alt="Logo MWSP"
+                  width="40"
+                  height="40"
+                  loading="lazy"
+                  decoding="async"
                   className="h-10 w-auto object-contain"
                 />
               </picture>
