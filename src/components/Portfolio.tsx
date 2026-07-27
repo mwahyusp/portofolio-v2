@@ -1,9 +1,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, Eye, Sparkles, X, Code } from 'lucide-react';
+import { ExternalLink, Eye, Sparkles, X, Code, Copy, Check, Play, FileCode, Info } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa6';
 import { PROJECTS, UI_TRANSLATIONS } from '../data/portfolioData';
 import { Project, CategoryType, Language } from '../types';
+import { 
+  ExpenseTrackerDemo, 
+  RecipeScalerDemo, 
+  MedicationReminderDemo, 
+  ElectricityEstimatorDemo,
+  SOURCE_CODES
+} from './InteractiveDemos';
 
 const GithubIcon = (props: { className?: string }) => {
   const Icon = FaGithub as any;
@@ -18,6 +25,8 @@ export default function Portfolio({ lang }: PortfolioProps) {
   const t = UI_TRANSLATIONS[lang].portfolio;
   const [activeCategory, setActiveCategory] = useState<CategoryType>('Semua');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [modalTab, setModalTab] = useState<'overview' | 'demo' | 'code'>('overview');
+  const [copiedCode, setCopiedCode] = useState(false);
 
   const categories: { key: CategoryType; label: string }[] = [
     { key: 'Semua', label: t.allTab },
@@ -29,6 +38,12 @@ export default function Portfolio({ lang }: PortfolioProps) {
   const filteredProjects = activeCategory === 'Semua'
     ? PROJECTS
     : PROJECTS.filter(p => p.category === activeCategory);
+
+  const handleCopyCode = (codeText: string) => {
+    navigator.clipboard.writeText(codeText);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
 
   return (
     <section id="portfolio" className="py-24 bg-slate-100/80 dark:bg-slate-900/80 relative">
@@ -113,7 +128,10 @@ export default function Portfolio({ lang }: PortfolioProps) {
                   {/* Hover Overlay Buttons */}
                   <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs flex items-center justify-center gap-3 p-4">
                     <button
-                      onClick={() => setSelectedProject(project)}
+                      onClick={() => {
+                        setSelectedProject(project);
+                        setModalTab('overview');
+                      }}
                       className="px-4 py-2.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs sm:text-sm hover:bg-white hover:scale-105 transition-all flex items-center gap-1.5 shadow-lg"
                     >
                       <Eye className="w-4 h-4 text-teal-600" />
@@ -177,7 +195,10 @@ export default function Portfolio({ lang }: PortfolioProps) {
                       </a>
 
                       <button
-                        onClick={() => setSelectedProject(project)}
+                        onClick={() => {
+                          setSelectedProject(project);
+                          setModalTab('overview');
+                        }}
                         className="p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
                         title={t.detailBtn}
                       >
@@ -221,7 +242,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
                 </button>
 
                 {/* Modal Header */}
-                <div className="mb-6">
+                <div className="mb-4 pr-8">
                   <span className="px-3 py-1 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 text-xs font-bold uppercase tracking-wider mb-2 inline-block">
                     {selectedProject.category}
                   </span>
@@ -230,41 +251,148 @@ export default function Portfolio({ lang }: PortfolioProps) {
                   </h3>
                 </div>
 
-                {/* Image Preview */}
-                <div className="rounded-2xl overflow-hidden mb-6 aspect-video bg-slate-100 dark:bg-slate-900 shadow-md">
-                  <picture className="w-full h-full block">
-                    <source type="image/webp" srcSet={selectedProject.imageWebp} />
-                    <img
-                      src={selectedProject.imagePng}
-                      alt={selectedProject.title[lang]}
-                      className="w-full h-full object-cover"
-                    />
-                  </picture>
+                {/* Modal Navigation Tabs */}
+                <div className="flex items-center gap-2 mb-6 border-b border-slate-200 dark:border-slate-700 pb-3 overflow-x-auto">
+                  <button
+                    onClick={() => setModalTab('overview')}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                      modalTab === 'overview'
+                        ? 'bg-teal-500 text-slate-950 font-extrabold shadow-md'
+                        : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
+                    }`}
+                  >
+                    <Info className="w-3.5 h-3.5" />
+                    <span>{t.overviewTab}</span>
+                  </button>
+
+                  <button
+                    onClick={() => setModalTab('demo')}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                      modalTab === 'demo'
+                        ? 'bg-emerald-500 text-slate-950 font-extrabold shadow-md'
+                        : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
+                    }`}
+                  >
+                    <Play className="w-3.5 h-3.5" />
+                    <span>{t.demoTab}</span>
+                  </button>
+
+                  <button
+                    onClick={() => setModalTab('code')}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                      modalTab === 'code'
+                        ? 'bg-cyan-500 text-slate-950 font-extrabold shadow-md'
+                        : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
+                    }`}
+                  >
+                    <FileCode className="w-3.5 h-3.5" />
+                    <span>{t.codeTab}</span>
+                  </button>
                 </div>
 
-                {/* Detailed Description */}
-                <div className="space-y-4 mb-6">
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-slate-400">{t.projectDescLabel}</h4>
-                  <p className="text-slate-700 dark:text-slate-200 text-base leading-relaxed">
-                    {selectedProject.detailedDescription ? selectedProject.detailedDescription[lang] : selectedProject.description[lang]}
-                  </p>
-                </div>
+                {/* TAB 1: OVERVIEW */}
+                {modalTab === 'overview' && (
+                  <div>
+                    {/* Image Preview */}
+                    <div className="rounded-2xl overflow-hidden mb-6 aspect-video bg-slate-100 dark:bg-slate-900 shadow-md">
+                      <picture className="w-full h-full block">
+                        <source type="image/webp" srcSet={selectedProject.imageWebp} />
+                        <img
+                          src={selectedProject.imagePng}
+                          alt={selectedProject.title[lang]}
+                          className="w-full h-full object-cover"
+                        />
+                      </picture>
+                    </div>
 
-                {/* Stack Badges */}
-                <div className="mb-8">
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">{t.techUsedLabel}</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.tags.map((tag, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1.5 rounded-xl bg-teal-500/10 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-bold border border-teal-500/30 flex items-center gap-1.5"
-                      >
-                        <Code className="w-3.5 h-3.5" />
-                        <span>{tag}</span>
-                      </span>
-                    ))}
+                    {/* Detailed Description */}
+                    <div className="space-y-4 mb-6">
+                      <h4 className="text-sm font-bold uppercase tracking-wider text-slate-400">{t.projectDescLabel}</h4>
+                      <p className="text-slate-700 dark:text-slate-200 text-base leading-relaxed">
+                        {selectedProject.detailedDescription ? selectedProject.detailedDescription[lang] : selectedProject.description[lang]}
+                      </p>
+                    </div>
+
+                    {/* Stack Badges */}
+                    <div className="mb-8">
+                      <h4 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">{t.techUsedLabel}</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.tags.map((tag, i) => (
+                          <span
+                            key={i}
+                            className="px-3 py-1.5 rounded-xl bg-teal-500/10 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-bold border border-teal-500/30 flex items-center gap-1.5"
+                          >
+                            <Code className="w-3.5 h-3.5" />
+                            <span>{tag}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
+
+                {/* TAB 2: INTERACTIVE DEMO */}
+                {modalTab === 'demo' && (
+                  <div className="mb-6">
+                    {selectedProject.id === 'expense-tracker-react' && <ExpenseTrackerDemo lang={lang} />}
+                    {selectedProject.id === 'recipe-scaler-react' && <RecipeScalerDemo lang={lang} />}
+                    {selectedProject.id === 'medication-reminder-next' && <MedicationReminderDemo lang={lang} />}
+                    {selectedProject.id === 'electricity-estimator-next' && <ElectricityEstimatorDemo lang={lang} />}
+
+                    {!['expense-tracker-react', 'recipe-scaler-react', 'medication-reminder-next', 'electricity-estimator-next'].includes(selectedProject.id) && (
+                      <div className="bg-slate-900 text-slate-100 p-6 rounded-2xl border border-slate-700/80 text-center space-y-4">
+                        <Sparkles className="w-10 h-10 text-teal-400 mx-auto animate-pulse" />
+                        <h4 className="text-lg font-bold text-white">
+                          {lang === 'id' ? 'Live External Demo Tersedia' : 'Live External Demo Available'}
+                        </h4>
+                        <p className="text-slate-300 text-sm max-w-md mx-auto">
+                          {lang === 'id'
+                            ? 'Aplikasi ini dihosting secara lengkap pada server demo eksternal. Anda dapat membukanya secara langsung melalui tombol Buka Live Demo di bawah.'
+                            : 'This full application is hosted on an external demo server. You can open and experience the full build using the Open Live Demo button below.'}
+                        </p>
+                        <a
+                          href={selectedProject.liveDemoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-teal-500 text-slate-950 font-bold text-xs shadow-lg hover:bg-teal-400 transition-colors"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          <span>{t.openLiveDemo}</span>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* TAB 3: SOURCE CODE */}
+                {modalTab === 'code' && (
+                  <div className="mb-6 space-y-3">
+                    {(() => {
+                      const codeText = SOURCE_CODES[selectedProject.id] || `// ${selectedProject.title.en} (${selectedProject.category})\n// Standard modern component implementation\n\nimport React from 'react';\n\nexport default function ${selectedProject.id.replace(/-/g, '_')}() {\n  return (\n    <div className="p-4 bg-slate-800 text-white rounded-xl">\n      <h2 className="text-xl font-bold">${selectedProject.title.id}</h2>\n      <p>${selectedProject.description.id}</p>\n    </div>\n  );\n}`;
+
+                      return (
+                        <div>
+                          <div className="flex items-center justify-between bg-slate-950 px-4 py-2 rounded-t-xl border-x border-t border-slate-800">
+                            <span className="text-xs font-mono text-teal-400 flex items-center gap-1.5">
+                              <FileCode className="w-3.5 h-3.5" />
+                              <span>{selectedProject.category === 'Next.js' ? 'app/page.tsx' : 'src/App.tsx'}</span>
+                            </span>
+                            <button
+                              onClick={() => handleCopyCode(codeText)}
+                              className="text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-md transition-colors flex items-center gap-1"
+                            >
+                              {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                              <span>{copiedCode ? t.codeCopied : t.copyCode}</span>
+                            </button>
+                          </div>
+                          <pre className="p-4 bg-slate-900 text-slate-200 text-xs font-mono rounded-b-xl border border-slate-800 overflow-x-auto max-h-80 leading-relaxed custom-scrollbar">
+                            <code>{codeText}</code>
+                          </pre>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                )}
 
                 {/* Modal External CTA Buttons */}
                 <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-slate-100 dark:border-slate-700">

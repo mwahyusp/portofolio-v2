@@ -42,16 +42,22 @@ export const UI_TRANSLATIONS = {
     portfolio: {
       sectionBadge: 'Portfolio Proyek',
       sectionTitle: 'Proyek Terbaru Saya',
-      sectionDesc: 'Koleksi karya dalam pengembangan front-end, dari aplikasi React interaktif hingga landing page responsif.',
+      sectionDesc: 'Koleksi karya dalam pengembangan front-end, dari aplikasi React interaktif hingga aplikasi Next.js sederhana dengan studi kasus kehidupan sehari-hari.',
       featuredBadge: 'Unggulan',
       liveDemo: 'Live Demo',
-      detailBtn: 'Detail',
+      detailBtn: 'Detail & Demo',
       seeLiveDemo: '▶️ Lihat Live Demo',
       projectDescLabel: 'Deskripsi Proyek',
       techUsedLabel: 'Teknologi Digunakan',
       openLiveDemo: 'Buka Live Demo',
       githubRepo: 'GitHub Repo',
       allTab: 'Semua',
+      overviewTab: 'Ringkasan Proyek',
+      demoTab: '⚡ Coba Demo Interaktif',
+      codeTab: '💻 Kode Sumber (Snippet)',
+      interactiveBadge: 'Interaktif di Modal',
+      copyCode: 'Salin Kode',
+      codeCopied: 'Berhasil Disalin! 📋',
     },
     contact: {
       sectionBadge: 'Kontak Saya',
@@ -121,16 +127,22 @@ export const UI_TRANSLATIONS = {
     portfolio: {
       sectionBadge: 'Project Portfolio',
       sectionTitle: 'My Recent Work',
-      sectionDesc: 'A collection of work in front-end development, from interactive React applications to responsive landing pages.',
+      sectionDesc: 'A collection of front-end projects, ranging from interactive React applications to simple Next.js apps solving everyday life cases.',
       featuredBadge: 'Featured',
       liveDemo: 'Live Demo',
-      detailBtn: 'Details',
+      detailBtn: 'Details & Demo',
       seeLiveDemo: '▶️ View Live Demo',
       projectDescLabel: 'Project Description',
       techUsedLabel: 'Technologies Used',
       openLiveDemo: 'Open Live Demo',
       githubRepo: 'GitHub Repo',
       allTab: 'All',
+      overviewTab: 'Project Overview',
+      demoTab: '⚡ Try Interactive Demo',
+      codeTab: '💻 Source Code (Snippet)',
+      interactiveBadge: 'Interactive in Modal',
+      copyCode: 'Copy Code',
+      codeCopied: 'Copied to Clipboard! 📋',
     },
     contact: {
       sectionBadge: 'Contact Me',
@@ -310,7 +322,7 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317696/paws-grooming_dnqeh0.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317740/paws-grooming_diuoe1.png',
-    liveDemoUrl: 'https://paws-groooming.vercel.app/',
+    liveDemoUrl: 'https://mwahyusp.github.io/paws-grooming/',
     githubUrl: 'https://github.com/mwahyusp/paws-grooming',
     tags: ['HTML5', 'Tailwind CSS', 'JavaScript', 'Responsive UI'],
     featured: false
@@ -424,6 +436,94 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/mwahyusp',
     tags: ['Next.js', 'Tailwind CSS', 'Form Handling', 'React Hooks'],
     featured: false
+  },
+  {
+    id: 'expense-tracker-react',
+    title: {
+      id: 'Pelacak Pengeluaran Harian & Anggaran',
+      en: 'Daily Expense & Budget Tracker'
+    },
+    category: 'React',
+    description: {
+      id: 'Aplikasi harian untuk mencatat pengeluaran harian (makan, transportasi, belanja) dengan perhitungan saldo dan batas anggaran bulanan.',
+      en: 'A practical app for logging daily grocery, transport, and meal expenses with real-time balance calculations and budget limit progress.'
+    },
+    detailedDescription: {
+      id: 'Aplikasi manajemen keuangan harian yang intuitif. Pengguna dapat menambah transaksi pemasukan dan pengeluaran, mengelompokkan kategori (makanan, belanja, bensin, tagihan), memantau sisa anggaran bulanan secara visual, dan menyimpan data secara otomatis di browser.',
+      en: 'An everyday personal finance tracker built with React.js. Users can add income and expense items, categorize spending (food, transport, bills), visually inspect remaining monthly budget progress bars, and automatically persist data.'
+    },
+    imageWebp: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+    imagePng: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+    liveDemoUrl: 'https://daily-expense-budget-tracker.vercel.app/',
+    githubUrl: 'https://github.com/mwahyusp/Daily-Expense-Budget-Tracker',
+    tags: ['React.js', 'State Management', 'Budgeting', 'Tailwind CSS', 'Local Storage'],
+    featured: true
+  },
+  {
+    id: 'recipe-scaler-react',
+    title: {
+      id: 'Kalkulator Porsi Resep Masakan Dapur',
+      en: 'Kitchen Recipe & Portion Scaler'
+    },
+    category: 'React',
+    description: {
+      id: 'Aplikasi praktis untuk menyesuaikan takaran bahan masakan sehari-hari secara otomatis berdasarkan jumlah porsi makan keluarga.',
+      en: 'An everyday kitchen tool to dynamically scale recipe ingredient measurements based on desired serving sizes for family meals.'
+    },
+    detailedDescription: {
+      id: 'Asisten dapur harian yang mempermudah kegiatan memasak di rumah. Pilih resep favorit (seperti Nasi Goreng, Soto Ayam, atau Pancake), tentukan porsi makan yang diinginkan (misal dari 2 porsi menjadi 6 porsi), dan aplikasi langsung menghitung ulang takaran bahan dalam gram, sendok, atau mililiter.',
+      en: 'An essential home cooking helper built with React.js. Select a favorite recipe (e.g. Fried Rice, Chicken Soup, Pancakes), adjust desired servings (e.g. scale from 2 to 6 portions), and the app instantly recalculates precise ingredient weights and measurements.'
+    },
+    imageWebp: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80',
+    imagePng: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80',
+    liveDemoUrl: 'https://calculator-portion-recipe.vercel.app/',
+    githubUrl: 'https://github.com/mwahyusp/kalkulator-porsi-resep',
+    tags: ['React.js', 'Interactive UI', 'Meal Prep', 'Dynamic Math', 'Tailwind CSS'],
+    featured: true
+  },
+  {
+    id: 'medication-reminder-next',
+    title: {
+      id: 'Pengingat Minum Obat & Vitamin Harian',
+      en: 'Daily Medication & Health Reminder'
+    },
+    category: 'Next.js',
+    description: {
+      id: 'Aplikasi berbasis Client/Server Components untuk mengelola jadwal minum obat & vitamin keluarga dengan centang konfirmasi harian.',
+      en: 'An application built with Server and Client components to organize daily family medication and vitamin schedules with tracking.'
+    },
+    detailedDescription: {
+      id: 'Aplikasi pemantau kesehatan keluarga berbasis Next.js App Router. Pengguna dapat membuat jadwal rutinitas suplemen/obat, menetapkan jam minum (pagi, siang, malam), mengonfirmasi dosis harian dengan checklist interaktif, serta melihat persentase kepatuhan minum obat.',
+      en: 'An everyday family healthcare tracker built with Next.js App Router. Users can set up supplement and medication schedules, assign daily intake times (morning, afternoon, night), check off taken doses, and track daily compliance progress.'
+    },
+    imageWebp: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
+    imagePng: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
+    liveDemoUrl: 'https://medication-vitamin-reminder.vercel.app/',
+    githubUrl: 'https://github.com/mwahyusp/Pengingat-Minum-Obat-Vitamin-Harian',
+    tags: ['Next.js', 'React Hooks', 'Health Tracker', 'Tailwind CSS', 'Server Components'],
+    featured: true
+  },
+  {
+    id: 'electricity-estimator-next',
+    title: {
+      id: 'Kalkulator Tagihan Listrik & Hemat Energi',
+      en: 'Home Electricity Bill Estimator'
+    },
+    category: 'Next.js',
+    description: {
+      id: 'Aplikasi untuk menghitung estimasi tagihan listrik bulanan rumah tangga berdasarkan daftar alat elektronik, watt, dan durasi penggunaan.',
+      en: 'An application to calculate monthly household electricity bills based on appliance wattage, daily usage hours, and PLN tariffs.'
+    },
+    detailedDescription: {
+      id: 'Solusi penghematan biaya energi rumah tangga dengan Next.js. Memungkinkan pengguna memilih peralatan elektronik rumah (AC, Kulkas, TV, Mesin Cuci, Lampu), mengatur daya Watt dan jam pemakaian per hari, kemudian menghitung perkiraan konsumsi kWh dan biaya tagihan Rupiah per bulan.',
+      en: 'An everyday home energy efficiency tool built with Next.js. Enables homeowners to select household appliances (AC, Refrigerator, TV, Washing Machine, Lights), adjust Wattage and daily usage hours, and instantly compute monthly kWh consumption and cost estimates.'
+    },
+    imageWebp: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80',
+    imagePng: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80',
+    liveDemoUrl: 'https://electricity-bill-calculator.vercel.app/',
+    githubUrl: 'https://github.com/mwahyusp/kalkulator-tagihan-listrik ',
+    tags: ['Next.js', 'Form Handling', 'Energy Saver', 'Tailwind CSS', 'Cost Calculator'],
+    featured: true
   }
 ];
 

@@ -71,7 +71,7 @@ export default function About({ lang }: AboutProps) {
 
             <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-100 dark:border-slate-700/60">
               <div className="text-center">
-                <span className="text-2xl sm:text-3xl font-extrabold text-teal-600 dark:text-teal-400 block">8+</span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-teal-600 dark:text-teal-400 block">12+</span>
                 <span className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">{t.statProjects}</span>
               </div>
               <div className="text-center">
