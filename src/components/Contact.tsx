@@ -1,7 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Send, Copy, Check, MapPin, Sparkles, CheckCircle, MessageSquare } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { PERSONAL_INFO, UI_TRANSLATIONS } from '../data/portfolioData';
 import { Language } from '../types';
 
@@ -31,17 +30,22 @@ export default function Contact({ lang }: ContactProps) {
     // Open email client with pre-filled content
     window.location.href = mailtoUrl;
 
-    setTimeout(() => {
+    setTimeout(async () => {
       setIsSubmitting(false);
       setSubmitted(true);
 
-      // Trigger Confetti Effect!
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#14b8a6', '#10b981', '#06b6d4', '#3b82f6']
-      });
+      // Trigger Confetti Effect dynamically!
+      try {
+        const { default: confetti } = await import('canvas-confetti');
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#14b8a6', '#10b981', '#06b6d4', '#3b82f6']
+        });
+      } catch (err) {
+        console.error(err);
+      }
 
       // Reset form after 5s
       setTimeout(() => {

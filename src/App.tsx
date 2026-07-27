@@ -52,26 +52,27 @@ export default function App() {
     localStorage.setItem('lang', lang);
   }, [lang]);
 
-  // Section observer for active navbar indicator
+  // IntersectionObserver for active navbar indicator (non-blocking, no forced reflow)
   useEffect(() => {
     const sections = document.querySelectorAll('section[id]');
-    
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
+    if (!sections.length) return;
 
-      sections.forEach((section) => {
-        const sectionTop = (section as HTMLElement).offsetTop;
-        const sectionHeight = (section as HTMLElement).offsetHeight;
-        const sectionId = section.getAttribute('id') || '';
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: 0,
+      }
+    );
 
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(sectionId);
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   return (

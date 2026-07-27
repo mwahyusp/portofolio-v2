@@ -136,7 +136,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
 
                   {/* Featured Badge */}
                   {project.featured && (
-                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-teal-500/90 text-white text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-md flex items-center gap-1">
+                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-teal-500/90 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-md flex items-center gap-1">
                       <Sparkles className="w-3 h-3" />
                       <span>{t.featuredBadge}</span>
                     </div>
