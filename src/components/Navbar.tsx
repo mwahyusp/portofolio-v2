@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEvent } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
 import { Sun, Moon, Menu, X, Sparkles, Globe } from 'lucide-react';
 import { PERSONAL_INFO, UI_TRANSLATIONS } from '../data/portfolioData';
@@ -41,6 +41,30 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
     { href: '#contact', label: t.contact, id: 'contact' },
   ];
 
+  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      const headerOffset = 70;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    } else {
+      window.location.hash = href;
+    }
+
+    // Smoothly close drawer shortly after tap to give immediate visual feedback
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+    }, 150);
+  };
+
   return (
     <>
       {/* Top Scroll Progress Indicator */}
@@ -61,6 +85,7 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
             {/* Logo */}
             <a
               href="#home"
+              onClick={(e) => handleNavClick(e, '#home')}
               className="group flex items-center gap-2 text-xl font-bold text-teal-600 dark:text-teal-400 focus:outline-none"
             >
               <div className="relative overflow-hidden rounded-lg p-1 transition-transform group-hover:scale-105">
@@ -86,6 +111,7 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
                   <a
                     key={link.id}
                     href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
                       isActive
                         ? 'text-teal-700 dark:text-teal-300 font-semibold'
@@ -191,13 +217,36 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
               </motion.a>
 
               {/* Mobile Hamburger Toggle */}
-              <button
+              <motion.button
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 focus:outline-none"
+                className="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 focus:outline-none transition-colors"
                 aria-label="Toggle Mobile Menu"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
+                <AnimatePresence mode="wait">
+                  {mobileMenuOpen ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      <X className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      <Menu className="w-5 h-5" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
             </div>
           </div>
         </div>
@@ -209,37 +258,52 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="lg:hidden overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 shadow-xl"
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:hidden overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-2xl"
             >
-              <div className="px-4 pt-3 pb-6 space-y-2">
+              <div className="px-4 pt-3 pb-6 space-y-1.5">
                 {navLinks.map((link) => {
                   const isActive = activeSection === link.id;
                   return (
-                    <a
+                    <motion.a
                       key={link.id}
                       href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`block px-4 py-3 rounded-xl text-base font-medium transition-all ${
+                      whileTap={{ scale: 0.98 }}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className={`relative block px-4 py-3 rounded-xl text-base font-medium transition-colors duration-200 ${
                         isActive
-                          ? 'bg-teal-500/10 text-teal-600 dark:text-teal-400 font-semibold border border-teal-500/20'
-                          : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
+                          ? 'text-teal-700 dark:text-teal-300 font-semibold'
+                          : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/80'
                       }`}
                     >
-                      {link.label}
-                    </a>
+                      {isActive && (
+                        <motion.div
+                          layoutId="active-mobile-nav-pill"
+                          className="absolute inset-0 bg-teal-500/15 dark:bg-teal-500/25 rounded-xl border border-teal-500/30"
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-10 flex items-center justify-between">
+                        <span>{link.label}</span>
+                        {isActive && (
+                          <span className="w-2 h-2 rounded-full bg-teal-500 dark:bg-teal-400 shadow-sm shadow-teal-500/50" />
+                        )}
+                      </span>
+                    </motion.a>
                   );
                 })}
-                <div className="pt-2">
-                  <a
+                <div className="pt-3">
+                  <motion.a
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
                     href="https://linkedin.com/in/mwahyusp"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold bg-teal-500 text-white shadow-md"
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-teal-500 to-emerald-600 text-white shadow-md shadow-teal-500/20"
                   >
                     <Sparkles className="w-4 h-4" />
                     <span>{t.hireMeLinkedIn}</span>
-                  </a>
+                  </motion.a>
                 </div>
               </div>
             </motion.div>

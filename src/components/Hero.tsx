@@ -105,6 +105,16 @@ export default function Hero({ lang }: HeroProps) {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 href="#portfolio"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById('portfolio');
+                  if (element) {
+                    const headerOffset = 70;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                  }
+                }}
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-md hover:border-teal-500 dark:hover:border-teal-400 transition-all text-base backdrop-blur-sm"
               >
                 <Code className="w-5 h-5 text-teal-500" />

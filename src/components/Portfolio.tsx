@@ -9,6 +9,7 @@ import {
   RecipeScalerDemo, 
   MedicationReminderDemo, 
   ElectricityEstimatorDemo,
+  ZivoMarketplaceDemo,
   SOURCE_CODES
 } from './InteractiveDemos';
 
@@ -337,9 +338,9 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     {selectedProject.id === 'expense-tracker-react' && <ExpenseTrackerDemo lang={lang} />}
                     {selectedProject.id === 'recipe-scaler-react' && <RecipeScalerDemo lang={lang} />}
                     {selectedProject.id === 'medication-reminder-next' && <MedicationReminderDemo lang={lang} />}
-                    {selectedProject.id === 'electricity-estimator-next' && <ElectricityEstimatorDemo lang={lang} />}
+                    {(selectedProject.id === 'zivo-marketplace-next' || selectedProject.id === 'electricity-estimator-next') && <ZivoMarketplaceDemo lang={lang} />}
 
-                    {!['expense-tracker-react', 'recipe-scaler-react', 'medication-reminder-next', 'electricity-estimator-next'].includes(selectedProject.id) && (
+                    {!['expense-tracker-react', 'recipe-scaler-react', 'medication-reminder-next', 'zivo-marketplace-next', 'electricity-estimator-next'].includes(selectedProject.id) && (
                       <div className="bg-slate-900 text-slate-100 p-6 rounded-2xl border border-slate-700/80 text-center space-y-4">
                         <Sparkles className="w-10 h-10 text-teal-400 mx-auto animate-pulse" />
                         <h4 className="text-lg font-bold text-white">

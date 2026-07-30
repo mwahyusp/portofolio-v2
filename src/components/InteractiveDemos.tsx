@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { 
   Plus, Trash2, DollarSign, PieChart, ShoppingBag, Utensils, Zap, Clock, 
   CheckCircle2, Circle, AlertCircle, Scale, Flame, Pill, Sun, Moon, Sunset, 
-  Tv, Wind, Lightbulb, Refrigerator, Copy, Check, Code2, Sparkles, RefreshCw
+  Tv, Wind, Lightbulb, Refrigerator, Copy, Check, Code2, Sparkles, RefreshCw,
+  ShoppingCart, Truck, Database, Layers, Globe, Search, Tag, ShieldCheck,
+  Server, Cpu, Layers3, Navigation, ArrowRight, Activity, ImageOff
 } from 'lucide-react';
 import { Language } from '../types';
 
@@ -544,154 +546,449 @@ export function MedicationReminderDemo({ lang }: DemoProps) {
 }
 
 // ============================================================================
-// 4. Home Electricity Bill Estimator Demo (Next.js)
+// 4. ZIVO Marketplace — E-Commerce Engine & Architecture Guide (Next.js 15)
 // ============================================================================
-interface Appliance {
-  id: string;
+interface ProductItem {
+  id: number;
   name: string;
-  icon: any;
-  defaultWatt: number;
-  defaultHours: number;
-  active: boolean;
+  price: number;
+  category: string;
+  image: string;
+  qty: number;
+  simulatedError?: boolean;
 }
 
-export function ElectricityEstimatorDemo({ lang }: DemoProps) {
-  const [appliances, setAppliances] = useState<Appliance[]>([
-    { id: 'ac', name: 'AC 1/2 PK', icon: Wind, defaultWatt: 350, defaultHours: 8, active: true },
-    { id: 'kulkas', name: 'Kulkas 2 Pintu', icon: Refrigerator, defaultWatt: 110, defaultHours: 24, active: true },
-    { id: 'tv', name: 'TV LED 43 Inch', icon: Tv, defaultWatt: 60, defaultHours: 6, active: true },
-    { id: 'lampu', name: 'Lampu LED (5 titik)', icon: Lightbulb, defaultWatt: 40, defaultHours: 12, active: true },
+export function ZivoMarketplaceDemo({ lang }: DemoProps) {
+  const [activeTab, setActiveTab] = useState<'cart' | 'tracking' | 'redis' | 'architecture'>('cart');
+
+  // 1. Cart State
+  const [cartItems, setCartItems] = useState<ProductItem[]>([
+    { id: 1, name: 'ZIVO SoundPulse ANC Wireless Headphones', price: 1499000, category: 'Audio', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80', qty: 1 },
+    { id: 2, name: 'ZIVO FitPro AMOLED Smartwatch v2', price: 899000, category: 'Wearables', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80', qty: 1 },
+    { id: 3, name: 'ZIVO Urban Leather Backpack 20L', price: 549000, category: 'Lifestyle', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80', qty: 1 }
   ]);
 
-  const [tariffRate, setTariffRate] = useState<number>(1444.7); // PLN R-1/TR 1.300 VA
+  const [couponCode, setCouponCode] = useState('ZIVO10');
+  const [appliedDiscount, setAppliedDiscount] = useState(0.10); // 10%
+  const [couponStatusMsg, setCouponStatusMsg] = useState('Kupon ZIVO10 Aktif (-10%)');
 
-  const toggleAppliance = (id: string) => {
-    setAppliances(appliances.map((a) => (a.id === id ? { ...a, active: !a.active } : a)));
+  // Fallback image tester state
+  const [brokenImgTest, setBrokenImgTest] = useState(false);
+
+  // Calculations
+  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
+  const discountAmount = subtotal * appliedDiscount;
+  const shippingFee = subtotal > 0 ? 25000 : 0;
+  const taxPPN = (subtotal - discountAmount) * 0.11; // 11% PPN
+  const grandTotal = subtotal - discountAmount + shippingFee + taxPPN;
+
+  const updateQty = (id: number, delta: number) => {
+    setCartItems(cartItems.map((item) => {
+      if (item.id === id) {
+        const newQty = Math.max(1, item.qty + delta);
+        return { ...item, qty: newQty };
+      }
+      return item;
+    }));
   };
 
-  const updateHours = (id: string, hours: number) => {
-    setAppliances(appliances.map((a) => (a.id === id ? { ...a, defaultHours: hours } : a)));
+  const removeItem = (id: number) => {
+    setCartItems(cartItems.filter((i) => i.id !== id));
   };
 
-  // Calculate daily kWh
-  const totalDailyKwh = appliances.reduce((acc, curr) => {
-    if (!curr.active) return acc;
-    return acc + (curr.defaultWatt * curr.defaultHours) / 1000;
-  }, 0);
+  const applyCoupon = () => {
+    if (couponCode.trim().toUpperCase() === 'ZIVO10') {
+      setAppliedDiscount(0.10);
+      setCouponStatusMsg(lang === 'id' ? 'Kupon ZIVO10 Berhasil! (-10%)' : 'ZIVO10 Coupon Applied! (-10%)');
+    } else if (couponCode.trim().toUpperCase() === 'ZIVO20') {
+      setAppliedDiscount(0.20);
+      setCouponStatusMsg(lang === 'id' ? 'Kupon Super ZIVO20! (-20%)' : 'Super Coupon ZIVO20! (-20%)');
+    } else {
+      setAppliedDiscount(0);
+      setCouponStatusMsg(lang === 'id' ? 'Kode Kupon Tidak Valid' : 'Invalid Coupon Code');
+    }
+  };
 
-  const totalMonthlyKwh = totalDailyKwh * 30;
-  const monthlyEstRp = totalMonthlyKwh * tariffRate;
+  // 2. Courier Tracking State
+  const [trackingStep, setTrackingStep] = useState(3);
+  const [refreshingGPS, setRefreshingGPS] = useState(false);
+
+  const simulateGPSRefresh = () => {
+    setRefreshingGPS(true);
+    setTimeout(() => setRefreshingGPS(false), 800);
+  };
+
+  // 3. Redis Cache Simulation State
+  const [cacheHitCount, setCacheHitCount] = useState(148);
+  const [cacheMissCount, setCacheMissCount] = useState(4);
+  const [lastQueryTime, setLastQueryTime] = useState('0.8 ms');
+  const [isWarmCache, setIsWarmCache] = useState(true);
+
+  const triggerRedisQuery = (type: 'hit' | 'miss') => {
+    if (type === 'hit') {
+      setCacheHitCount((prev) => prev + 1);
+      setLastQueryTime(`${(Math.random() * 0.5 + 0.5).toFixed(1)} ms (In-Memory Redis)`);
+    } else {
+      setCacheMissCount((prev) => prev + 1);
+      setLastQueryTime(`${(Math.random() * 40 + 90).toFixed(0)} ms (Cold DB Fetch)`);
+    }
+  };
 
   const formatRp = (num: number) => 'Rp ' + Math.round(num).toLocaleString('id-ID');
 
   return (
     <div className="bg-slate-900 text-slate-100 p-5 sm:p-6 rounded-2xl border border-slate-700/80 shadow-xl space-y-6 text-sm">
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-        <div>
-          <span className="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wider">
-            Next.js App Router Demo
-          </span>
-          <h4 className="text-lg font-bold text-white mt-1">
-            {lang === 'id' ? 'Kalkulator Tagihan Listrik PLN' : 'Electricity Bill Estimator'}
-          </h4>
+      {/* Brand Header & Tagline */}
+      <div className="pb-4 border-b border-slate-800 space-y-2">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 text-slate-950 font-black flex items-center justify-center text-lg tracking-wider shadow-lg">
+              Z
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h4 className="text-xl font-extrabold text-white tracking-wide">ZIVO Marketplace</h4>
+                <span className="px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-[10px] font-bold border border-teal-500/30">
+                  Next.js 15.3 Engine
+                </span>
+              </div>
+              <p className="text-xs text-teal-400 font-medium italic">
+                {lang === 'id' ? '“Belanja lebih cepat. Lebih cerdas. Lebih terpercaya.”' : '“Shop smarter. Faster. Better.”'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1.5 bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 text-xs font-semibold text-slate-300">
+            <Globe className="w-3.5 h-3.5 text-teal-400" />
+            <span>{lang === 'id' ? 'Bahasa Indonesia' : 'English (US)'}</span>
+          </div>
         </div>
-        <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400">
-          <Zap className="w-5 h-5" />
+
+        {/* Feature Tabs */}
+        <div className="flex items-center gap-2 pt-3 overflow-x-auto custom-scrollbar">
+          <button
+            onClick={() => setActiveTab('cart')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeTab === 'cart'
+                ? 'bg-teal-500 text-slate-950 shadow-md font-black'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+            }`}
+          >
+            <ShoppingCart className="w-3.5 h-3.5" />
+            <span>{lang === 'id' ? 'Cart & Checkout Drawer' : 'Cart & Checkout'}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('tracking')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeTab === 'tracking'
+                ? 'bg-emerald-500 text-slate-950 shadow-md font-black'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+            }`}
+          >
+            <Truck className="w-3.5 h-3.5" />
+            <span>{lang === 'id' ? 'Lacak Kurir Real-Time' : 'Live Order Tracking'}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('redis')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeTab === 'redis'
+                ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+            }`}
+          >
+            <Server className="w-3.5 h-3.5" />
+            <span>{lang === 'id' ? 'Simulasi Redis Cache' : 'Redis Cache Engine'}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('architecture')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeTab === 'architecture'
+                ? 'bg-amber-500 text-slate-950 shadow-md font-black'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+            }`}
+          >
+            <Layers3 className="w-3.5 h-3.5" />
+            <span>{lang === 'id' ? 'Atomic Design Matrix' : 'Atomic Design'}</span>
+          </button>
         </div>
       </div>
 
-      {/* Bill Result Banner */}
-      <div className="bg-gradient-to-r from-amber-950/60 to-slate-800 p-4 rounded-xl border border-amber-800/40 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <span className="text-xs text-slate-300 block">{lang === 'id' ? 'Estimasi Tagihan Bulanan' : 'Estimated Monthly Bill'}</span>
-          <span className="text-2xl font-extrabold text-amber-400 font-mono">{formatRp(monthlyEstRp)}</span>
-        </div>
-        <div className="text-right">
-          <span className="text-xs text-slate-400 block">{lang === 'id' ? 'Konsumsi kWh/Bulan' : 'Monthly Consumption'}</span>
-          <span className="text-sm font-bold text-slate-200 font-mono">{totalMonthlyKwh.toFixed(1)} kWh</span>
-        </div>
-      </div>
+      {/* TAB 1: CART & CHECKOUT DRAWER */}
+      {activeTab === 'cart' && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-bold text-slate-300 flex items-center gap-1.5">
+              <ShoppingBag className="w-4 h-4 text-teal-400" />
+              <span>{lang === 'id' ? 'Item Dalam Keranjang Belanja' : 'Shopping Cart Items'} ({cartItems.length})</span>
+            </span>
 
-      {/* Tariff Select */}
-      <div className="flex items-center justify-between text-xs bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
-        <span className="text-slate-300">{lang === 'id' ? 'Tarif Listrik PLN (Golongan):' : 'PLN Rate Tariff:'}</span>
-        <select
-          value={tariffRate}
-          onChange={(e) => setTariffRate(Number(e.target.value))}
-          className="bg-slate-900 border border-slate-700 text-amber-300 font-bold px-3 py-1 rounded-lg focus:outline-none"
-        >
-          <option value={1352}>R-1/ 900 VA (Rp 1.352/kWh)</option>
-          <option value={1444.7}>R-1/ 1.300 VA (Rp 1.444/kWh)</option>
-          <option value={1699.53}>R-1/ 2.200 VA (Rp 1.699/kWh)</option>
-        </select>
-      </div>
+            <button
+              onClick={() => setBrokenImgTest(!brokenImgTest)}
+              className="text-[11px] font-semibold text-amber-400 hover:text-amber-300 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20 flex items-center gap-1"
+            >
+              <ImageOff className="w-3 h-3" />
+              <span>{brokenImgTest ? 'Reset Gambar HD' : 'Uji Fallback Gambar Rusak'}</span>
+            </button>
+          </div>
 
-      {/* Appliance Toggles */}
-      <div className="space-y-3">
-        <span className="text-xs font-bold text-slate-300 block">
-          {lang === 'id' ? 'Peralatan Elektronik Rumah:' : 'Household Appliances:'}
-        </span>
-
-        <div className="space-y-2 max-h-56 overflow-y-auto pr-1 custom-scrollbar">
-          {appliances.map((app) => {
-            const Icon = app.icon;
-            const dailyKwh = (app.defaultWatt * app.defaultHours) / 1000;
-            const monthlyCost = dailyKwh * 30 * tariffRate;
-
-            return (
-              <div
-                key={app.id}
-                className={`p-3 rounded-xl border transition-all ${
-                  app.active
-                    ? 'bg-slate-800/90 border-slate-700 text-white'
-                    : 'bg-slate-950/40 border-slate-800 text-slate-500 opacity-60'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2.5">
-                    <button
-                      onClick={() => toggleAppliance(app.id)}
-                      className={`p-2 rounded-lg transition-colors ${
-                        app.active ? 'bg-amber-500/20 text-amber-400' : 'bg-slate-800 text-slate-500'
-                      }`}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </button>
+          {/* Item List */}
+          <div className="space-y-2 max-h-56 overflow-y-auto pr-1 custom-scrollbar">
+            {cartItems.length === 0 ? (
+              <p className="text-center text-slate-500 py-6">{lang === 'id' ? 'Keranjang belanja Anda kosong.' : 'Your cart is currently empty.'}</p>
+            ) : (
+              cartItems.map((item) => (
+                <div key={item.id} className="p-3 rounded-xl bg-slate-800/90 border border-slate-700/60 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={brokenImgTest ? 'https://broken-link-example.com/invalid.jpg' : item.image}
+                      alt={item.name}
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                        const parent = (e.target as HTMLElement).parentElement;
+                        if (parent && !parent.querySelector('.fallback-box')) {
+                          const fallback = document.createElement('div');
+                          fallback.className = 'fallback-box w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center text-[10px] text-teal-400 font-bold text-center p-1';
+                          fallback.innerText = 'ZIVO HD';
+                          parent.appendChild(fallback);
+                        }
+                      }}
+                      className="w-12 h-12 rounded-lg object-cover border border-slate-700 shrink-0"
+                    />
                     <div>
-                      <span className="text-xs font-bold block">{app.name}</span>
-                      <span className="text-[10px] text-slate-400">{app.defaultWatt} Watt</span>
+                      <span className="text-xs font-bold text-white block max-w-[200px] sm:max-w-[260px] truncate">{item.name}</span>
+                      <span className="text-[11px] font-mono text-teal-400 font-bold">{formatRp(item.price)}</span>
                     </div>
                   </div>
 
-                  {app.active && (
-                    <span className="text-xs font-mono font-bold text-amber-400">
-                      {formatRp(monthlyCost)} /bln
-                    </span>
-                  )}
-                </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 bg-slate-900 px-2 py-1 rounded-lg border border-slate-700">
+                      <button onClick={() => updateQty(item.id, -1)} className="w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center text-xs">
+                        -
+                      </button>
+                      <span className="font-mono text-xs font-bold text-white min-w-[16px] text-center">{item.qty}</span>
+                      <button onClick={() => updateQty(item.id, 1)} className="w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center text-xs">
+                        +
+                      </button>
+                    </div>
 
-                {app.active && (
-                  <div className="flex items-center gap-3 pt-2 border-t border-slate-700/40 text-xs">
-                    <span className="text-[11px] text-slate-400 whitespace-nowrap">
-                      {lang === 'id' ? 'Pemakaian:' : 'Usage:'} {app.defaultHours} {lang === 'id' ? 'jam/hari' : 'hrs/day'}
-                    </span>
-                    <input
-                      type="range"
-                      min="1"
-                      max="24"
-                      value={app.defaultHours}
-                      onChange={(e) => updateHours(app.id, Number(e.target.value))}
-                      className="w-full accent-amber-500 h-1 bg-slate-700 rounded-lg cursor-pointer"
-                    />
+                    <button onClick={() => removeItem(item.id)} className="text-slate-500 hover:text-rose-400 p-1" title="Hapus">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
-                )}
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Coupon Code Input */}
+          <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60 space-y-2">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                placeholder={lang === 'id' ? 'Masukkan kode kupon (ZIVO10 / ZIVO20)' : 'Coupon code (ZIVO10 / ZIVO20)'}
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value)}
+                className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white uppercase placeholder-slate-500 focus:outline-none focus:border-teal-500"
+              />
+              <button
+                onClick={applyCoupon}
+                className="px-3 py-1.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold rounded-lg text-xs transition-colors"
+              >
+                {lang === 'id' ? 'Gunakan Kupon' : 'Apply'}
+              </button>
+            </div>
+            {couponStatusMsg && (
+              <span className="text-[11px] font-semibold text-emerald-400 block">{couponStatusMsg}</span>
+            )}
+          </div>
+
+          {/* Price Calculation Summary */}
+          <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+            <div className="flex justify-between text-slate-400">
+              <span>Subtotal Produk</span>
+              <span className="font-mono text-slate-200">{formatRp(subtotal)}</span>
+            </div>
+            {appliedDiscount > 0 && (
+              <div className="flex justify-between text-emerald-400 font-semibold">
+                <span>Diskon Kupon ({(appliedDiscount * 100)}%)</span>
+                <span className="font-mono">-{formatRp(discountAmount)}</span>
               </div>
-            );
-          })}
+            )}
+            <div className="flex justify-between text-slate-400">
+              <span>Estimasi Ongkos Kirim (JNE/ZIVO Express)</span>
+              <span className="font-mono text-slate-200">{formatRp(shippingFee)}</span>
+            </div>
+            <div className="flex justify-between text-slate-400">
+              <span>PPN 11% (Pajak Pertambahan Nilai)</span>
+              <span className="font-mono text-slate-200">{formatRp(taxPPN)}</span>
+            </div>
+            <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-sm font-bold">
+              <span className="text-white">Grand Total Pembayaran</span>
+              <span className="text-teal-400 font-mono text-base">{formatRp(grandTotal)}</span>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* TAB 2: LIVE COURIER ORDER TRACKING */}
+      {activeTab === 'tracking' && (
+        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div>
+              <span className="text-xs text-slate-400 block font-semibold">{lang === 'id' ? 'Nomor Resi Pengiriman' : 'Tracking Number'}</span>
+              <span className="text-sm font-mono font-bold text-teal-400">ZV-98421049-ID</span>
+            </div>
+            <button
+              onClick={simulateGPSRefresh}
+              className="px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5 transition-colors"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${refreshingGPS ? 'animate-spin' : ''}`} />
+              <span>{lang === 'id' ? 'Refresh GPS Kurir' : 'Live GPS Refresh'}</span>
+            </button>
+          </div>
+
+          {/* Live Courier Details */}
+          <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-teal-500/20 border border-teal-500/40 text-teal-300 flex items-center justify-center font-bold">
+                <Truck className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-xs font-bold text-white block">Kurir: ZIVO Express (Pak Budi S.)</span>
+                <span className="text-[11px] text-slate-400">Armada Motor • Nopol B 4820 ZVO</span>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold border border-emerald-500/30 animate-pulse">
+              ● Live Tracking
+            </span>
+          </div>
+
+          {/* Timeline Steps */}
+          <div className="space-y-3 pt-2">
+            <span className="text-xs font-bold text-slate-300 block">{lang === 'id' ? 'Linimasa Pengiriman' : 'Shipment Timeline'}</span>
+            <div className="space-y-2.5">
+              {[
+                { step: 1, title: 'Pesanan Diterima & Terkonfirmasi', desc: 'Sistem ZIVO memverifikasi pembayaran PPN 11%', time: '10:15 WIB' },
+                { step: 2, title: 'Dikemas di Gudang Pusat Jakarta', desc: 'Barang dicek QC dan dilapisi bubble wrap', time: '11:40 WIB' },
+                { step: 3, title: 'Kurir Menuju Lokasi Penerima', desc: 'Kurir Budi sedang berkendara (0.8 km lagi)', time: '13:05 WIB (Aktif)' },
+                { step: 4, title: 'Tiba di Alamat Tujuan', desc: 'Estimasi penerimaan oleh pelanggan', time: '13:25 WIB' }
+              ].map((item) => (
+                <div key={item.step} className="flex items-start gap-3 text-xs">
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 font-mono text-[10px] font-bold ${
+                    item.step <= trackingStep ? 'bg-teal-500 text-slate-950' : 'bg-slate-800 text-slate-500 border border-slate-700'
+                  }`}>
+                    {item.step <= trackingStep ? '✓' : item.step}
+                  </div>
+                  <div className="flex-1">
+                    <span className={`font-bold block ${item.step === trackingStep ? 'text-teal-300' : 'text-slate-300'}`}>{item.title}</span>
+                    <span className="text-[11px] text-slate-400 block">{item.desc}</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-500">{item.time}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 3: REDIS IN-MEMORY CACHE MONITOR */}
+      {activeTab === 'redis' && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
+              <span className="text-[11px] text-slate-400 block mb-0.5">Redis Cache Hits</span>
+              <span className="text-lg font-bold text-emerald-400 font-mono">{cacheHitCount}</span>
+            </div>
+            <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
+              <span className="text-[11px] text-slate-400 block mb-0.5">Redis Cache Misses</span>
+              <span className="text-lg font-bold text-rose-400 font-mono">{cacheMissCount}</span>
+            </div>
+            <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
+              <span className="text-[11px] text-slate-400 block mb-0.5">Kecepatan Kueri</span>
+              <span className="text-sm font-bold text-cyan-300 font-mono">{lastQueryTime}</span>
+            </div>
+            <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
+              <span className="text-[11px] text-slate-400 block mb-0.5">Hit Ratio</span>
+              <span className="text-lg font-bold text-amber-400 font-mono">
+                {((cacheHitCount / (cacheHitCount + cacheMissCount)) * 100).toFixed(1)}%
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => triggerRedisQuery('hit')}
+              className="flex-1 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5"
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span>Simulasi Query Cache HIT (0.8ms)</span>
+            </button>
+            <button
+              onClick={() => triggerRedisQuery('miss')}
+              className="flex-1 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5"
+            >
+              <Database className="w-3.5 h-3.5" />
+              <span>Simulasi Cold DB Fetch (110ms)</span>
+            </button>
+          </div>
+
+          <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 font-mono text-[11px] space-y-1.5">
+            <span className="text-slate-400 text-[10px] uppercase tracking-wider block font-sans">Active Redis Cache Keys:</span>
+            <div className="text-emerald-400">SET zivo:catalog:featured_v2 TTL 3600 (OK)</div>
+            <div className="text-cyan-400">GET zivo:cart:session_usr_9842 -&gt; 3 items cached</div>
+            <div className="text-amber-400">RATE_LIMIT zivo:ip:103.28.14.2 -&gt; 24/100 req/min</div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 4: ATOMIC DESIGN & TECH STACK MATRIX */}
+      {activeTab === 'architecture' && (
+        <div className="space-y-4">
+          <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 text-xs">
+            <span className="font-bold text-amber-400 block text-sm">Structure Pattern: Atomic Design System</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+              <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                <span className="text-teal-400 font-bold block mb-1">1. Atoms</span>
+                <span className="text-slate-300">Badge, Button, Input, IconWrapper, Spinner</span>
+              </div>
+              <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                <span className="text-emerald-400 font-bold block mb-1">2. Molecules</span>
+                <span className="text-slate-300">LanguageDropdown, Pagination, ProductCard, SearchBar, Toast</span>
+              </div>
+              <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                <span className="text-cyan-400 font-bold block mb-1">3. Organisms</span>
+                <span className="text-slate-300">CartDrawer, Navbar, ProductGrid, RedisCacheDrawer, OrderTracker</span>
+              </div>
+              <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                <span className="text-amber-400 font-bold block mb-1">4. Templates</span>
+                <span className="text-slate-300">HeroBanner, Footer, PageWrapper, LayoutGrid</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60 text-xs space-y-2">
+            <span className="font-bold text-slate-200 block">Tech Stack Matrix:</span>
+            <div className="flex flex-wrap gap-2 text-[11px]">
+              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-teal-300 border border-slate-700">Next.js 15.3</span>
+              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-emerald-300 border border-slate-700">React 19</span>
+              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-cyan-300 border border-slate-700">TypeScript 5.8</span>
+              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-amber-300 border border-slate-700">Zustand State</span>
+              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-rose-300 border border-slate-700">Storybook 8.6</span>
+              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-purple-300 border border-slate-700">Playwright 1.54 E2E</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
+}
+
+// Alias ElectricityEstimatorDemo to ZivoMarketplaceDemo for backwards compatibility
+export function ElectricityEstimatorDemo(props: DemoProps) {
+  return <ZivoMarketplaceDemo {...props} />;
 }
 
 // ============================================================================
@@ -830,46 +1127,50 @@ export default async function MedicationPage() {
   );
 }`,
 
-  'electricity-estimator-next': `// app/electricity/page.tsx - Home Electricity Estimator (Next.js)
-'use client';
-import React, { useState } from 'react';
+  'zivo-marketplace-next': `// app/page.tsx - ZIVO Marketplace E-Commerce Engine (Next.js 15 & Atomic Design)
+import React from 'react';
+import { Navbar } from '@/components/organisms/Navbar';
+import { HeroBanner } from '@/components/templates/HeroBanner';
+import { ProductGrid } from '@/components/organisms/ProductGrid';
+import { CartDrawer } from '@/components/organisms/CartDrawer';
+import { Footer } from '@/components/templates/Footer';
 
-export default function ElectricityCalculator() {
-  const [appliances, setAppliances] = useState([
-    { name: 'AC 1/2 PK', watt: 350, hours: 8 },
-    { name: 'Kulkas 2 Pintu', watt: 110, hours: 24 },
-  ]);
-
-  const tariffPLN = 1444.7; // Rp/kWh untuk 1.300 VA
-
-  const totalDailyKwh = appliances.reduce((sum, a) => sum + (a.watt * a.hours) / 1000, 0);
-  const monthlyCost = totalDailyKwh * 30 * tariffPLN;
-
+export default function ZivoStorePage() {
   return (
-    <div className="p-6 bg-slate-900 text-white rounded-2xl">
-      <h2 className="text-xl font-bold mb-4">Kalkulator Tagihan Listrik PLN</h2>
-      
-      <div className="bg-amber-950/60 p-4 rounded-xl border border-amber-800 mb-6">
-        <span className="text-xs text-slate-300 block">Estimasi Tagihan Bulanan</span>
-        <span className="text-2xl font-bold text-amber-400 font-mono">
-          Rp {Math.round(monthlyCost).toLocaleString('id-ID')}
-        </span>
-      </div>
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
+      {/* Organisms: Top Navigation & Language Switcher */}
+      <Navbar />
 
-      <div className="space-y-3">
-        {appliances.map((app, idx) => (
-          <div key={idx} className="bg-slate-800 p-3 rounded-xl flex justify-between items-center text-sm">
-            <div>
-              <span className="font-bold block">{app.name}</span>
-              <span className="text-xs text-slate-400">{app.watt}W • {app.hours} jam/hari</span>
-            </div>
-            <span className="font-mono text-amber-400 font-bold">
-              Rp {Math.round(((app.watt * app.hours) / 1000) * 30 * tariffPLN).toLocaleString()}
-            </span>
-          </div>
-        ))}
-      </div>
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-8">
+        {/* Templates: Promotional Hero Banner */}
+        <HeroBanner 
+          tagline="Belanja lebih cepat. Lebih cerdas. Lebih terpercaya." 
+        />
+
+        {/* Organisms: Product Catalog & Redis In-Memory Search */}
+        <ProductGrid />
+      </main>
+
+      {/* Organisms: Cart Drawer with 11% PPN calculation & Live Order Tracker */}
+      <CartDrawer />
+
+      {/* Templates: Footer */}
+      <Footer />
+    </div>
+  );
+}`,
+
+  'electricity-estimator-next': `// app/page.tsx - ZIVO Marketplace E-Commerce Engine (Next.js 15 & Atomic Design)
+import React from 'react';
+import { Navbar } from '@/components/organisms/Navbar';
+
+export default function ZivoStorePage() {
+  return (
+    <div className="min-h-screen bg-slate-900 text-white p-6">
+      <h1 className="text-2xl font-bold">ZIVO Marketplace Engine</h1>
+      <p>Belanja lebih cepat. Lebih cerdas. Lebih terpercaya.</p>
     </div>
   );
 }`
 };
+
