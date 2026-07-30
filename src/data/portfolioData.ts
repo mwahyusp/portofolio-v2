@@ -180,7 +180,7 @@ export const PERSONAL_INFO = {
   role: 'Front-End Developer',
   location: 'Jakarta Selatan, Indonesia',
   email: 'remoteworkwithwahyu@gmail.com',
-  address: 'Jl. Rawa Jati Timur 1 No. 38, Jakarta Selatan',
+  address: 'Jakarta Selatan',
   profileImageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171957/wahyu_mtuylr.webp',
   profileImagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171957/wahyu_uxpv2d.png',
   logoWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171950/mwsp-1-green_zqsifx.webp',
