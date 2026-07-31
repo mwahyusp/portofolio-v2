@@ -60,13 +60,13 @@ export default function Footer({ lang }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a href="#portfolio" className="hover:text-teal-400 transition-colors">
-                  {UI_TRANSLATIONS[lang].nav.portfolio}
+                <a href="#skills" className="hover:text-teal-400 transition-colors">
+                  {UI_TRANSLATIONS[lang].nav.skills}
                 </a>
               </li>
               <li>
-                <a href="#skills" className="hover:text-teal-400 transition-colors">
-                  {UI_TRANSLATIONS[lang].nav.skills}
+                <a href="#portfolio" className="hover:text-teal-400 transition-colors">
+                  {UI_TRANSLATIONS[lang].nav.portfolio}
                 </a>
               </li>
               <li>

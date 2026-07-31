@@ -54,10 +54,10 @@ export default function Hero({ lang }: HeroProps) {
           >
             {/* Live Availability Badge */}
             <motion.div variants={itemVariants} className="inline-flex items-center justify-center lg:justify-start mb-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-teal-500/10 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300 border border-teal-500/30 backdrop-blur-sm">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 backdrop-blur-sm shadow-xs">
                 <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                 </span>
                 <span>{t.availabilityBadge}</span>
               </div>
@@ -115,7 +115,7 @@ export default function Hero({ lang }: HeroProps) {
                     window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                   }
                 }}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-md hover:border-teal-500 dark:hover:border-teal-400 transition-all text-base backdrop-blur-sm"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-md hover:border-teal-500 dark:hover:border-teal-400 transition-all text-base backdrop-blur-sm"
               >
                 <Code className="w-5 h-5 text-teal-500" />
                 <span>{t.viewPortfolio}</span>

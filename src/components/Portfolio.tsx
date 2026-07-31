@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ExternalLink, Eye, Sparkles, X, Code, Copy, Check, Play, FileCode, Info } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa6';
@@ -28,6 +28,21 @@ export default function Portfolio({ lang }: PortfolioProps) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [modalTab, setModalTab] = useState<'overview' | 'demo' | 'code'>('overview');
   const [copiedCode, setCopiedCode] = useState(false);
+
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [selectedProject]);
 
   const categories: { key: CategoryType; label: string }[] = [
     { key: 'Semua', label: t.allTab },
@@ -127,27 +142,17 @@ export default function Portfolio({ lang }: PortfolioProps) {
                   </picture>
 
                   {/* Hover Overlay Buttons */}
-                  <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs flex items-center justify-center gap-3 p-4">
+                  <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs flex items-center justify-center p-4">
                     <button
                       onClick={() => {
                         setSelectedProject(project);
                         setModalTab('overview');
                       }}
-                      className="px-4 py-2.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs sm:text-sm hover:bg-white hover:scale-105 transition-all flex items-center gap-1.5 shadow-lg"
+                      className="px-5 py-2.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs sm:text-sm hover:bg-white hover:scale-105 transition-all flex items-center gap-2 shadow-lg"
                     >
                       <Eye className="w-4 h-4 text-teal-600" />
                       <span>{t.detailBtn}</span>
                     </button>
-
-                    <a
-                      href={project.liveDemoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2.5 rounded-full bg-teal-500 text-white font-semibold text-xs sm:text-sm hover:bg-teal-600 hover:scale-105 transition-all flex items-center gap-1.5 shadow-lg"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      <span>{t.liveDemo}</span>
-                    </a>
                   </div>
 
                   {/* Featured Badge */}
@@ -185,13 +190,15 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     </div>
 
                     {/* Footer Live Links */}
-                    <div className="pt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
+                    <div className="pt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between gap-2">
                       <a
                         href={project.liveDemoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-sm font-bold text-teal-600 dark:text-teal-400 hover:underline"
+                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-teal-600 dark:text-teal-400 hover:underline"
+                        title={t.openLiveDemo}
                       >
+                        <ExternalLink className="w-3.5 h-3.5" />
                         <span>{t.seeLiveDemo}</span>
                       </a>
 
@@ -200,7 +207,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
                           setSelectedProject(project);
                           setModalTab('overview');
                         }}
-                        className="p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                        className="p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shrink-0"
                         title={t.detailBtn}
                       >
                         <Eye className="w-4 h-4" />
@@ -216,14 +223,14 @@ export default function Portfolio({ lang }: PortfolioProps) {
         {/* Detailed Modal Overlay */}
         <AnimatePresence>
           {selectedProject && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 overflow-y-auto overscroll-contain">
               {/* Backdrop */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setSelectedProject(null)}
-                className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"
+                className="fixed inset-0 bg-slate-950/85 backdrop-blur-md"
               />
 
               {/* Modal Box */}
@@ -232,7 +239,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                className="relative z-10 bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto"
+                className="relative z-10 bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto overscroll-contain"
               >
                 {/* Close Button */}
                 <button
@@ -258,7 +265,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     onClick={() => setModalTab('overview')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
                       modalTab === 'overview'
-                        ? 'bg-teal-500 text-slate-950 font-extrabold shadow-md'
+                        ? 'bg-teal-500 text-white dark:text-slate-950 font-extrabold shadow-md'
                         : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                     }`}
                   >
@@ -270,7 +277,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     onClick={() => setModalTab('demo')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
                       modalTab === 'demo'
-                        ? 'bg-emerald-500 text-slate-950 font-extrabold shadow-md'
+                        ? 'bg-emerald-500 text-white dark:text-slate-950 font-extrabold shadow-md'
                         : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                     }`}
                   >
@@ -282,7 +289,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     onClick={() => setModalTab('code')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
                       modalTab === 'code'
-                        ? 'bg-cyan-500 text-slate-950 font-extrabold shadow-md'
+                        ? 'bg-cyan-500 text-white dark:text-slate-950 font-extrabold shadow-md'
                         : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                     }`}
                   >
@@ -341,12 +348,12 @@ export default function Portfolio({ lang }: PortfolioProps) {
                     {(selectedProject.id === 'zivo-marketplace-next' || selectedProject.id === 'electricity-estimator-next') && <ZivoMarketplaceDemo lang={lang} />}
 
                     {!['expense-tracker-react', 'recipe-scaler-react', 'medication-reminder-next', 'zivo-marketplace-next', 'electricity-estimator-next'].includes(selectedProject.id) && (
-                      <div className="bg-slate-900 text-slate-100 p-6 rounded-2xl border border-slate-700/80 text-center space-y-4">
-                        <Sparkles className="w-10 h-10 text-teal-400 mx-auto animate-pulse" />
-                        <h4 className="text-lg font-bold text-white">
+                      <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/80 text-center space-y-4 shadow-sm">
+                        <Sparkles className="w-10 h-10 text-teal-600 dark:text-teal-400 mx-auto animate-pulse" />
+                        <h4 className="text-lg font-bold text-slate-900 dark:text-white">
                           {lang === 'id' ? 'Live External Demo Tersedia' : 'Live External Demo Available'}
                         </h4>
-                        <p className="text-slate-300 text-sm max-w-md mx-auto">
+                        <p className="text-slate-600 dark:text-slate-300 text-sm max-w-md mx-auto">
                           {lang === 'id'
                             ? 'Aplikasi ini dihosting secara lengkap pada server demo eksternal. Anda dapat membukanya secara langsung melalui tombol Buka Live Demo di bawah.'
                             : 'This full application is hosted on an external demo server. You can open and experience the full build using the Open Live Demo button below.'}
@@ -355,7 +362,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
                           href={selectedProject.liveDemoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-teal-500 text-slate-950 font-bold text-xs shadow-lg hover:bg-teal-400 transition-colors"
+                          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-teal-500 text-white dark:text-slate-950 font-bold text-xs shadow-lg hover:bg-teal-400 transition-colors"
                         >
                           <ExternalLink className="w-4 h-4" />
                           <span>{t.openLiveDemo}</span>
@@ -372,21 +379,21 @@ export default function Portfolio({ lang }: PortfolioProps) {
                       const codeText = SOURCE_CODES[selectedProject.id] || `// ${selectedProject.title.en} (${selectedProject.category})\n// Standard modern component implementation\n\nimport React from 'react';\n\nexport default function ${selectedProject.id.replace(/-/g, '_')}() {\n  return (\n    <div className="p-4 bg-slate-800 text-white rounded-xl">\n      <h2 className="text-xl font-bold">${selectedProject.title.id}</h2>\n      <p>${selectedProject.description.id}</p>\n    </div>\n  );\n}`;
 
                       return (
-                        <div>
-                          <div className="flex items-center justify-between bg-slate-950 px-4 py-2 rounded-t-xl border-x border-t border-slate-800">
-                            <span className="text-xs font-mono text-teal-400 flex items-center gap-1.5">
+                        <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm">
+                          <div className="flex items-center justify-between bg-slate-100 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800">
+                            <span className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400 flex items-center gap-1.5">
                               <FileCode className="w-3.5 h-3.5" />
                               <span>{selectedProject.category === 'Next.js' ? 'app/page.tsx' : 'src/App.tsx'}</span>
                             </span>
                             <button
                               onClick={() => handleCopyCode(codeText)}
-                              className="text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-md transition-colors flex items-center gap-1"
+                              className="text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700 transition-colors flex items-center gap-1.5 shadow-xs"
                             >
-                              {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                              {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                               <span>{copiedCode ? t.codeCopied : t.copyCode}</span>
                             </button>
                           </div>
-                          <pre className="p-4 bg-slate-900 text-slate-200 text-xs font-mono rounded-b-xl border border-slate-800 overflow-x-auto max-h-80 leading-relaxed custom-scrollbar">
+                          <pre className="p-4 bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 text-xs font-mono overflow-x-auto max-h-80 leading-relaxed custom-scrollbar border-t border-slate-200/50 dark:border-slate-800/80">
                             <code>{codeText}</code>
                           </pre>
                         </div>

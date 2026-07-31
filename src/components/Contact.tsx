@@ -54,11 +54,34 @@ export default function Contact({ lang }: ContactProps) {
   const copyEmailToClipboard = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
     setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2500);
+    setTimeout(() => setCopiedEmail(false), 3000);
   };
 
   return (
     <section id="contact" className="py-24 bg-white dark:bg-slate-900 relative overflow-hidden">
+      {/* Floating Global Toast Notification */}
+      <AnimatePresence>
+        {copiedEmail && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className="fixed bottom-6 right-6 z-[2000] bg-slate-900 dark:bg-slate-800 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-teal-500/50 flex items-center gap-3 backdrop-blur-md"
+          >
+            <div className="p-2 rounded-xl bg-teal-500/20 text-teal-400">
+              <Check className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white">
+                {lang === 'id' ? 'Email Tersalin!' : 'Email Copied!'}
+              </p>
+              <p className="text-xs text-slate-300 font-mono">
+                {PERSONAL_INFO.email}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Background Subtle Gradient Blobs */}
       <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 

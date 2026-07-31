@@ -14,7 +14,7 @@ export const UI_TRANSLATIONS = {
       darkMode: 'Gelap',
     },
     hero: {
-      availabilityBadge: 'Tersedia untuk Kolaborasi & Full-time',
+      availabilityBadge: 'Tersedia untuk Project / Full-time',
       greetingPrefix: 'Hai, Semua 👋, Saya',
       rolePrefix: 'Seorang',
       contactTitle: 'Hubungi:',
@@ -38,6 +38,11 @@ export const UI_TRANSLATIONS = {
       sectionTitle: 'Teknologi Yang Saya Kuasai',
       sectionDesc: 'Kombinasi alat, pustaka, dan alur kerja modern yang saya gunakan untuk membangun aplikasi web yang cepat dan responsif.',
       allTab: 'Semua',
+      frontendTab: 'Frontend',
+      frameworkTab: 'Framework',
+      backendTab: 'Backend',
+      databaseTab: 'Database & Cloud',
+      toolsTab: 'Tools & Utilities',
     },
     portfolio: {
       sectionBadge: 'Portfolio Proyek',
@@ -46,7 +51,7 @@ export const UI_TRANSLATIONS = {
       featuredBadge: 'Unggulan',
       liveDemo: 'Live Demo',
       detailBtn: 'Detail & Demo',
-      seeLiveDemo: '▶️ Lihat Live Demo',
+      seeLiveDemo: 'Live Demo',
       projectDescLabel: 'Deskripsi Proyek',
       techUsedLabel: 'Teknologi Digunakan',
       openLiveDemo: 'Buka Live Demo',
@@ -79,7 +84,7 @@ export const UI_TRANSLATIONS = {
       successDesc: 'Terima kasih telah menghubungi saya. Saya akan membalas pesan Anda sesegera mungkin!',
     },
     footer: {
-      desc: 'Front-End Developer dari Jakarta. Berfokus pada pembuatan pengalaman pengguna yang responsif, cepat, dan modern.',
+      desc: 'Seorang Front-End Web Developer dari Jakarta. Berfokus pada pembuatan pengalaman pengguna yang responsif, cepat, dan modern.',
       navHeader: 'Tautan Navigasi',
       socialHeader: 'Media Sosial',
       rights: 'Semua hak dilindungi.',
@@ -99,7 +104,7 @@ export const UI_TRANSLATIONS = {
       darkMode: 'Dark',
     },
     hero: {
-      availabilityBadge: 'Available for Collaboration & Full-time',
+      availabilityBadge: 'Available for Project / Full-time',
       greetingPrefix: "Hi Everyone 👋, I'm",
       rolePrefix: 'A',
       contactTitle: 'Connect:',
@@ -123,6 +128,11 @@ export const UI_TRANSLATIONS = {
       sectionTitle: 'Technologies I Master',
       sectionDesc: 'A combination of modern tools, libraries, and workflows I use to build fast, responsive web applications.',
       allTab: 'All',
+      frontendTab: 'Frontend',
+      frameworkTab: 'Framework',
+      backendTab: 'Backend',
+      databaseTab: 'Database & Cloud',
+      toolsTab: 'Tools & Utilities',
     },
     portfolio: {
       sectionBadge: 'Project Portfolio',
@@ -131,7 +141,7 @@ export const UI_TRANSLATIONS = {
       featuredBadge: 'Featured',
       liveDemo: 'Live Demo',
       detailBtn: 'Details & Demo',
-      seeLiveDemo: '▶️ View Live Demo',
+      seeLiveDemo: 'Live Demo',
       projectDescLabel: 'Project Description',
       techUsedLabel: 'Technologies Used',
       openLiveDemo: 'Open Live Demo',
@@ -164,7 +174,7 @@ export const UI_TRANSLATIONS = {
       successDesc: 'Thank you for contacting me. I will respond to your message as soon as possible!',
     },
     footer: {
-      desc: 'Front-End Developer from Jakarta. Focused on crafting responsive, fast, and modern user experiences.',
+      desc: 'A Front-End Web Developer from Jakarta. Focused on crafting responsive, fast, and modern user experiences.',
       navHeader: 'Navigation Links',
       socialHeader: 'Social Media',
       rights: 'All rights reserved.',
@@ -177,10 +187,13 @@ export const PERSONAL_INFO = {
   name: 'Mohammad Wahyu Sanusi Putra',
   shortName: 'Wahyu',
   nickname: 'mwahyusp',
-  role: 'Front-End Developer',
-  location: 'Jakarta Selatan, Indonesia',
+  role: 'Front-End Web Developer',
+  location: {
+    id: 'Jakarta Selatan, Indonesia',
+    en: 'South Jakarta, Indonesia'
+  },
   email: 'remoteworkwithwahyu@gmail.com',
-  address: 'Jakarta Selatan',
+  address: 'Jakarta Selatan, Indonesia',
   profileImageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171957/wahyu_mtuylr.webp',
   profileImagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171957/wahyu_uxpv2d.png',
   logoWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171950/mwsp-1-green_zqsifx.webp',
@@ -194,8 +207,8 @@ export const PERSONAL_INFO = {
     en: "I'm not a genius programmer. I'm just an ordinary person who keeps learning, failing, and trying again — from free courses to prestigious bootcamps. Today, I'm proud to say: I am a developer. And this journey taught me one thing: consistency beats talent."
   },
   aboutText1: {
-    id: 'Saya Wahyu, Front-End Developer dari Jakarta yang percaya bahwa teknologi dimulai dari keberanian untuk belajar. Dengan pengalaman di Generasi Gigih (Gojek), OpenClassrooms, dan Dicoding, saya terus tumbuh lewat setiap kode yang ditulis dan setiap tantangan yang dihadapi.',
-    en: 'I am Wahyu, a Front-End Developer from Jakarta who believes technology starts with the courage to learn. With hands-on experience at Generasi Gigih (Gojek), OpenClassrooms, and Dicoding, I continue to grow with every line of code written and challenge embraced.'
+    id: 'Saya Wahyu, seorang Front-End Web Developer dari Jakarta yang percaya bahwa teknologi dimulai dari keberanian untuk belajar. Dengan pengalaman di Generasi Gigih (Gojek), OpenClassrooms, dan Dicoding, saya terus tumbuh lewat setiap kode yang ditulis dan setiap tantangan yang dihadapi.',
+    en: 'I am Wahyu, a Front-End Web Developer from Jakarta who believes technology starts with the courage to learn. With hands-on experience at Generasi Gigih (Gojek), OpenClassrooms, and Dicoding, I continue to grow with every line of code written and challenge embraced.'
   },
   aboutText2: {
     id: 'Suka ngobrol tentang coding, proyek web, atau tips belajar teknologi? Saya terbuka untuk kolaborasi, diskusi, atau sekadar jadi teman diskusi. Mari saling belajar dan tumbuh bersama!',
@@ -279,7 +292,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1758187313/todo-apps-react-context-api_m5kxz4.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1758187300/todo-apps-react-context-api_amqtff.png',
     liveDemoUrl: 'https://todo-apps-react-context-api.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/todo-apps-react-context-api',
     tags: ['React.js', 'Context API', 'Glassmorphism', 'Tailwind CSS', 'Dark Mode'],
     featured: true
   },
@@ -301,7 +314,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1758802772/mental-health-tracker_1_wcqhjk.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1758802735/mental-health-tracker_n4ksia.png',
     liveDemoUrl: 'https://mental-health-tracker-three.vercel.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/mental-health-tracker',
     tags: ['React.js', 'Chart.js', 'Tailwind CSS', 'LocalStorage', 'Wellness'],
     featured: true
   },
@@ -322,7 +335,7 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317696/paws-grooming_dnqeh0.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317740/paws-grooming_diuoe1.png',
-    liveDemoUrl: 'https://mwahyusp.github.io/paws-grooming/',
+    liveDemoUrl: 'https://paws-grooming-seven.vercel.app/',
     githubUrl: 'https://github.com/mwahyusp/paws-grooming',
     tags: ['HTML5', 'Tailwind CSS', 'JavaScript', 'Responsive UI'],
     featured: false
@@ -345,7 +358,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318159/contact-apps_lyrmyz.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318147/contact-apps_hzkzc9.png',
     liveDemoUrl: 'https://contacts-app-nine.vercel.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/contacts-app',
     tags: ['React.js', 'State Management', 'Search Filter', 'Tailwind CSS'],
     featured: false
   },
@@ -367,7 +380,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171923/my-privy-noter_tihfp9.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171924/my-privy-noter_lvtyif.png',
     liveDemoUrl: 'https://my-privy-noter.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/my-privy-noter',
     tags: ['React.js', 'Notes System', 'Archive Feature', 'CSS Modules'],
     featured: false
   },
@@ -389,7 +402,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318159/simple-blog_uvho0d.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318147/simple-blog_rdhkkj.png',
     liveDemoUrl: 'https://simplee-blog.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/simple-blog-rvt',
     tags: ['React.js', 'Vite', 'Tailwind CSS', 'Full CRUD'],
     featured: false
   },
@@ -411,7 +424,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1759740765/gif-oasis-search-app_ukrlew.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1759740766/gif-oasis-search-app_hhuor9.png',
     liveDemoUrl: 'https://gif-oasis-search-app.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/gif-oasis-search-app',
     tags: ['React.js', 'Giphy API', 'Dark Theme', 'Tailwind CSS', 'Smooth Transitions'],
     featured: true
   },
@@ -433,7 +446,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757929313/contact-form-next_baslyl.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757929350/contact-form-next_hsakcs.png',
     liveDemoUrl: 'https://contact-form-nextjs.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp',
+    githubUrl: 'https://github.com/mwahyusp/contact-form-nextjs',
     tags: ['Next.js', 'Tailwind CSS', 'Form Handling', 'React Hooks'],
     featured: false
   },
@@ -454,13 +467,13 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
     imagePng: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
-    liveDemoUrl: 'https://mwahyusp.github.io/expense-tracker-react/',
-    githubUrl: 'https://github.com/mwahyusp/expense-tracker-react',
+    liveDemoUrl: 'https://daily-expense-budget-tracker.vercel.app/',
+    githubUrl: 'https://github.com/mwahyusp/Daily-Expense-Budget-Tracker',
     tags: ['React.js', 'State Management', 'Budgeting', 'Tailwind CSS', 'Local Storage'],
     featured: true
   },
   {
-    id: 'recipe-scaler-react',
+    id: 'calculator-portion-recipe',
     title: {
       id: 'Kalkulator Porsi Resep Masakan Dapur',
       en: 'Kitchen Recipe & Portion Scaler'
@@ -476,8 +489,8 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80',
     imagePng: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80',
-    liveDemoUrl: 'https://mwahyusp.github.io/recipe-scaler-react/',
-    githubUrl: 'https://github.com/mwahyusp/recipe-scaler-react',
+    liveDemoUrl: 'https://calculator-portion-recipe.vercel.app',
+    githubUrl: 'https://github.com/mwahyusp/calculator-portion-recipe',
     tags: ['React.js', 'Interactive UI', 'Meal Prep', 'Dynamic Math', 'Tailwind CSS'],
     featured: true
   },
@@ -498,8 +511,8 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
     imagePng: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-    liveDemoUrl: 'https://medication-reminder-next.vercel.app/',
-    githubUrl: 'https://github.com/mwahyusp/medication-reminder-next',
+    liveDemoUrl: 'https://medication-vitamin-reminder.vercel.app/',
+    githubUrl: 'https://github.com/mwahyusp/medication-vitamin-reminder',
     tags: ['Next.js', 'React Hooks', 'Health Tracker', 'Tailwind CSS', 'Server Components'],
     featured: true
   },
@@ -529,13 +542,23 @@ export const PROJECTS: Project[] = [
 
 export const SKILLS: Skill[] = [
   {
-    name: 'React.js',
+    name: 'React.js 18/19',
     category: 'Framework',
     level: 90,
     iconName: 'Code2',
     description: {
       id: 'Pengembangan komponen UI modular, Hooks, Context API, & State Management.',
       en: 'Modular UI component development, Hooks, Context API, & State Management.'
+    }
+  },
+  {
+    name: 'Next.js 15',
+    category: 'Framework',
+    level: 85,
+    iconName: 'Layers',
+    description: {
+      id: 'App Router, Server Components, Routing, SSG/SSR & Atomic Design System.',
+      en: 'App Router, Server Components, Routing, SSG/SSR & Atomic Design System.'
     }
   },
   {
@@ -559,23 +582,43 @@ export const SKILLS: Skill[] = [
     }
   },
   {
-    name: 'Next.js',
-    category: 'Framework',
-    level: 82,
-    iconName: 'Layers',
+    name: 'HTML5 & CSS3',
+    category: 'Frontend',
+    level: 95,
+    iconName: 'Layout',
     description: {
-      id: 'Server Components, Routing, Static Site Generation (SSG) & API Routes.',
-      en: 'Server Components, Routing, Static Site Generation (SSG) & API Routes.'
+      id: 'Semantik HTML, Flexbox, Grid Layouts, Aksesibilitas & Responsif Desktop/Mobile.',
+      en: 'Semantic HTML, Flexbox, Grid Layouts, Accessibility & Responsive Desktop/Mobile.'
     }
   },
   {
-    name: 'Vite & Build Tools',
-    category: 'Tools',
-    level: 85,
-    iconName: 'Zap',
+    name: 'Node.js & Express API',
+    category: 'Backend',
+    level: 82,
+    iconName: 'Server',
     description: {
-      id: 'Modul Bundler ultra-cepat untuk proyek React & modern Web Applications.',
-      en: 'Ultra-fast module bundler for modern React projects and Web Applications.'
+      id: 'Pengembangan RESTful API, Middleware server-side, routing & autentikasi dasar.',
+      en: 'RESTful API endpoints, server-side middleware, routing & basic auth handling.'
+    }
+  },
+  {
+    name: 'REST API & Fetching',
+    category: 'Backend',
+    level: 88,
+    iconName: 'Globe',
+    description: {
+      id: 'Pengambilan data asynchronous (Fetch/Axios) & penanganan status loading/error.',
+      en: 'Asynchronous data fetching (Fetch/Axios) & loading/error handling.'
+    }
+  },
+  {
+    name: 'Redis Cache & Cloud Storage',
+    category: 'Database & Cloud',
+    level: 80,
+    iconName: 'Database',
+    description: {
+      id: 'Simulasi In-Memory Caching (0.8ms), LocalStorage persistence & Firebase Firestore.',
+      en: 'In-Memory Caching simulation (0.8ms), LocalStorage persistence & Firebase Firestore.'
     }
   },
   {
@@ -589,23 +632,13 @@ export const SKILLS: Skill[] = [
     }
   },
   {
-    name: 'HTML5 & Responsive CSS3',
-    category: 'Frontend',
-    level: 95,
-    iconName: 'Layout',
-    description: {
-      id: 'Semantik HTML, Flexbox, Grid Layouts, Accessibility & Cross-browser Compatibility.',
-      en: 'Semantic HTML, Flexbox, Grid Layouts, Accessibility & Cross-browser Compatibility.'
-    }
-  },
-  {
-    name: 'Rest API Integration',
+    name: 'Vite & Build Tools',
     category: 'Tools',
     level: 85,
-    iconName: 'Globe',
+    iconName: 'Zap',
     description: {
-      id: 'Pengambilan data asynchronous (Fetch/Axios) & Penanganan Status Loading/Error.',
-      en: 'Asynchronous data fetching (Fetch/Axios) & Loading/Error status handling.'
+      id: 'Modul Bundler ultra-cepat untuk proyek React & modern Web Applications.',
+      en: 'Ultra-fast module bundler for modern React projects and Web Applications.'
     }
   }
 ];

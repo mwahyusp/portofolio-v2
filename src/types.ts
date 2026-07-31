@@ -23,7 +23,7 @@ export interface Project {
 
 export interface Skill {
   name: string;
-  category: 'Frontend' | 'Framework' | 'Tools';
+  category: 'Frontend' | 'Framework' | 'Backend' | 'Database & Cloud' | 'Tools';
   level: number; // 0 to 100
   iconName: string;
   description: LocalizedText;

@@ -36,8 +36,8 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
   const navLinks = [
     { href: '#home', label: t.home, id: 'home' },
     { href: '#about', label: t.about, id: 'about' },
-    { href: '#portfolio', label: t.portfolio, id: 'portfolio' },
     { href: '#skills', label: t.skills, id: 'skills' },
+    { href: '#portfolio', label: t.portfolio, id: 'portfolio' },
     { href: '#contact', label: t.contact, id: 'contact' },
   ];
 

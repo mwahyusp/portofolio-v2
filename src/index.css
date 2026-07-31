@@ -61,3 +61,34 @@
   @apply bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/60 shadow-xl;
 }
 
+/* Print CSS for clean PDF export */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide all non-printable elements */
+  header, nav, main, footer, .print\:hidden {
+    display: none !important;
+  }
+
+  /* Ensure modal backdrop and overlays don't block print */
+  .fixed {
+    position: static !important;
+    inset: auto !important;
+    background: transparent !important;
+  }
+
+  .overflow-y-auto {
+    overflow: visible !important;
+  }
+}
+

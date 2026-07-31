@@ -66,47 +66,47 @@ export function ExpenseTrackerDemo({ lang }: DemoProps) {
   };
 
   return (
-    <div className="bg-slate-900 text-slate-100 p-5 sm:p-6 rounded-2xl border border-slate-700/80 shadow-xl space-y-6 text-sm">
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+    <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/80 shadow-xl space-y-6 text-sm">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
         <div>
-          <span className="px-2.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold uppercase tracking-wider">
+          <span className="px-2.5 py-1 rounded-full bg-teal-500/10 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-bold uppercase tracking-wider border border-teal-500/20">
             React JS Demo
           </span>
-          <h4 className="text-lg font-bold text-white mt-1">
+          <h4 className="text-lg font-bold text-slate-900 dark:text-white mt-1">
             {lang === 'id' ? 'Pelacak Pengeluaran Harian' : 'Daily Expense Tracker'}
           </h4>
         </div>
         <div className="text-right">
-          <span className="text-xs text-slate-400 block">{lang === 'id' ? 'Batas Anggaran' : 'Budget Limit'}</span>
-          <span className="font-mono font-bold text-teal-400 text-base">{formatRp(budget)}</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400 block">{lang === 'id' ? 'Batas Anggaran' : 'Budget Limit'}</span>
+          <span className="font-mono font-bold text-teal-600 dark:text-teal-400 text-base">{formatRp(budget)}</span>
         </div>
       </div>
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700/50">
-          <span className="text-xs text-slate-400 block mb-1">{lang === 'id' ? 'Total Pengeluaran' : 'Total Expense'}</span>
-          <span className="text-base font-bold text-rose-400">{formatRp(totalExpense)}</span>
+        <div className="bg-white dark:bg-slate-800/80 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-xs">
+          <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">{lang === 'id' ? 'Total Pengeluaran' : 'Total Expense'}</span>
+          <span className="text-base font-bold text-rose-600 dark:text-rose-400">{formatRp(totalExpense)}</span>
         </div>
-        <div className="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700/50">
-          <span className="text-xs text-slate-400 block mb-1">{lang === 'id' ? 'Sisa Anggaran' : 'Remaining Budget'}</span>
-          <span className={`text-base font-bold ${remainingBudget >= 0 ? 'text-emerald-400' : 'text-rose-500'}`}>
+        <div className="bg-white dark:bg-slate-800/80 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-xs">
+          <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">{lang === 'id' ? 'Sisa Anggaran' : 'Remaining Budget'}</span>
+          <span className={`text-base font-bold ${remainingBudget >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-500'}`}>
             {formatRp(remainingBudget)}
           </span>
         </div>
-        <div className="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700/50">
-          <span className="text-xs text-slate-400 block mb-1">{lang === 'id' ? 'Persentase Terpakai' : 'Budget Used'}</span>
-          <span className="text-base font-bold text-amber-400">{percentageSpent}%</span>
+        <div className="bg-white dark:bg-slate-800/80 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-xs">
+          <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">{lang === 'id' ? 'Persentase Terpakai' : 'Budget Used'}</span>
+          <span className="text-base font-bold text-amber-600 dark:text-amber-400">{percentageSpent}%</span>
         </div>
       </div>
 
       {/* Progress Bar */}
       <div>
-        <div className="flex justify-between text-xs text-slate-400 mb-1.5">
+        <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1.5">
           <span>{lang === 'id' ? 'Penggunaan Anggaran' : 'Budget Meter'}</span>
           <span>{percentageSpent}% / 100%</span>
         </div>
-        <div className="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-700">
+        <div className="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-300 dark:border-slate-700">
           <div
             className={`h-full rounded-full transition-all duration-500 ${
               percentageSpent > 85
@@ -119,27 +119,27 @@ export function ExpenseTrackerDemo({ lang }: DemoProps) {
       </div>
 
       {/* Input Form */}
-      <form onSubmit={handleAddTransaction} className="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60 space-y-3">
-        <span className="text-xs font-bold text-slate-300 block">{lang === 'id' ? '+ Tambah Transaksi Harian' : '+ Add Daily Expense'}</span>
+      <form onSubmit={handleAddTransaction} className="bg-white dark:bg-slate-800/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-xs space-y-3">
+        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 block">{lang === 'id' ? '+ Tambah Transaksi Harian' : '+ Add Daily Expense'}</span>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           <input
             type="text"
             placeholder={lang === 'id' ? 'Nama transaksi (misal: Makan Siang)' : 'Title (e.g. Lunch)'}
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
-            className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 col-span-1 sm:col-span-1"
+            className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-teal-500 col-span-1 sm:col-span-1"
           />
           <input
             type="number"
             placeholder={lang === 'id' ? 'Nominal Rp' : 'Amount Rp'}
             value={newAmount}
             onChange={(e) => setNewAmount(e.target.value)}
-            className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-500"
+            className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-teal-500"
           />
           <select
             value={newCategory}
             onChange={(e) => setNewCategory(e.target.value as any)}
-            className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-teal-500"
+            className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-teal-500"
           >
             <option value="Makanan">Makanan</option>
             <option value="Transportasi">Transportasi</option>
@@ -149,7 +149,7 @@ export function ExpenseTrackerDemo({ lang }: DemoProps) {
         </div>
         <button
           type="submit"
-          className="w-full py-2 bg-teal-500 hover:bg-teal-600 text-slate-950 font-bold rounded-lg transition-colors flex items-center justify-center gap-1.5 text-xs shadow-md"
+          className="w-full py-2 bg-teal-500 hover:bg-teal-600 text-white dark:text-slate-950 font-bold rounded-lg transition-colors flex items-center justify-center gap-1.5 text-xs shadow-md"
         >
           <Plus className="w-4 h-4" />
           <span>{lang === 'id' ? 'Simpan Transaksi' : 'Save Transaction'}</span>
@@ -158,33 +158,33 @@ export function ExpenseTrackerDemo({ lang }: DemoProps) {
 
       {/* Transaction List */}
       <div className="space-y-2">
-        <span className="text-xs font-bold text-slate-400 block">{lang === 'id' ? 'Catatan Terbaru' : 'Recent Entries'}</span>
+        <span className="text-xs font-bold text-slate-500 dark:text-slate-400 block">{lang === 'id' ? 'Catatan Terbaru' : 'Recent Entries'}</span>
         <div className="max-h-48 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
           {transactions.length === 0 ? (
-            <p className="text-xs text-slate-500 text-center py-4">{lang === 'id' ? 'Belum ada transaksi.' : 'No transactions logged yet.'}</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 text-center py-4">{lang === 'id' ? 'Belum ada transaksi.' : 'No transactions logged yet.'}</p>
           ) : (
             transactions.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/90 border border-slate-700/40 hover:border-slate-600 transition-colors"
+                className="flex items-center justify-between p-2.5 rounded-lg bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/40 hover:border-slate-300 dark:hover:border-slate-600 transition-colors shadow-xs"
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded-md bg-teal-500/10 text-teal-400">
+                  <div className="p-2 rounded-md bg-teal-500/10 text-teal-600 dark:text-teal-400">
                     {item.category === 'Makanan' && <Utensils className="w-4 h-4" />}
                     {item.category === 'Transportasi' && <Zap className="w-4 h-4" />}
                     {item.category === 'Belanja' && <ShoppingBag className="w-4 h-4" />}
                     {item.category === 'Tagihan' && <DollarSign className="w-4 h-4" />}
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-white block">{item.title}</span>
-                    <span className="text-[10px] text-slate-400">{item.category} • {item.date}</span>
+                    <span className="text-xs font-semibold text-slate-900 dark:text-white block">{item.title}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400">{item.category} • {item.date}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-bold text-rose-400">-{formatRp(item.amount)}</span>
+                  <span className="text-xs font-mono font-bold text-rose-600 dark:text-rose-400">-{formatRp(item.amount)}</span>
                   <button
                     onClick={() => handleDelete(item.id)}
-                    className="text-slate-500 hover:text-rose-400 transition-colors p-1"
+                    className="text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors p-1"
                     title={lang === 'id' ? 'Hapus' : 'Delete'}
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -271,17 +271,17 @@ export function RecipeScalerDemo({ lang }: DemoProps) {
   };
 
   return (
-    <div className="bg-slate-900 text-slate-100 p-5 sm:p-6 rounded-2xl border border-slate-700/80 shadow-xl space-y-6 text-sm">
-      <div className="flex flex-wrap items-center justify-between pb-3 border-b border-slate-800 gap-2">
+    <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/80 shadow-xl space-y-6 text-sm">
+      <div className="flex flex-wrap items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 gap-2">
         <div>
-          <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+          <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider border border-emerald-500/20">
             React JS Demo
           </span>
-          <h4 className="text-lg font-bold text-white mt-1">
+          <h4 className="text-lg font-bold text-slate-900 dark:text-white mt-1">
             {lang === 'id' ? 'Kalkulator Resep & Porsi Dapur' : 'Kitchen Recipe Scaler'}
           </h4>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-amber-400 bg-amber-500/10 px-3 py-1.5 rounded-full border border-amber-500/20">
+        <div className="flex items-center gap-1.5 text-xs text-amber-700 dark:text-amber-400 bg-amber-500/10 px-3 py-1.5 rounded-full border border-amber-500/20">
           <Clock className="w-3.5 h-3.5" />
           <span>{selectedRecipe.prepTime}</span>
         </div>
@@ -300,7 +300,7 @@ export function RecipeScalerDemo({ lang }: DemoProps) {
             className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
               selectedRecipe.id === r.id
                 ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md scale-102'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-xs'
             }`}
           >
             {r.title}
@@ -309,25 +309,25 @@ export function RecipeScalerDemo({ lang }: DemoProps) {
       </div>
 
       {/* Servings Adjuster */}
-      <div className="bg-slate-800/80 p-4 rounded-xl border border-slate-700/60 flex items-center justify-between">
+      <div className="bg-white dark:bg-slate-800/80 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 flex items-center justify-between shadow-xs">
         <div>
-          <span className="text-xs text-slate-400 block">{lang === 'id' ? 'Target Porsi Makan' : 'Target Servings'}</span>
-          <span className="text-xs font-semibold text-emerald-400">
+          <span className="text-xs text-slate-500 dark:text-slate-400 block">{lang === 'id' ? 'Target Porsi Makan' : 'Target Servings'}</span>
+          <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
             {lang === 'id' ? `Standar resep asal: ${selectedRecipe.baseServings} porsi` : `Base recipe: ${selectedRecipe.baseServings} servings`}
           </span>
         </div>
 
-        <div className="flex items-center gap-3 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
+        <div className="flex items-center gap-3 bg-slate-100 dark:bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
           <button
             onClick={() => setServings(Math.max(1, servings - 1))}
-            className="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors"
+            className="w-7 h-7 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold flex items-center justify-center transition-colors shadow-xs"
           >
             -
           </button>
-          <span className="text-base font-bold font-mono text-white min-w-[24px] text-center">{servings}</span>
+          <span className="text-base font-bold font-mono text-slate-900 dark:text-white min-w-[24px] text-center">{servings}</span>
           <button
             onClick={() => setServings(servings + 1)}
-            className="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors"
+            className="w-7 h-7 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold flex items-center justify-center transition-colors shadow-xs"
           >
             +
           </button>
@@ -337,10 +337,10 @@ export function RecipeScalerDemo({ lang }: DemoProps) {
       {/* Ingredient List */}
       <div>
         <div className="flex justify-between items-center mb-3">
-          <span className="text-xs font-bold text-slate-300">
+          <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
             {lang === 'id' ? `Daftar Bahan (${servings} Porsi):` : `Ingredients for ${servings} Servings:`}
           </span>
-          <span className="text-[11px] text-slate-400 font-mono">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
             Scale Ratio: {scaleFactor.toFixed(1)}x
           </span>
         </div>
@@ -356,19 +356,19 @@ export function RecipeScalerDemo({ lang }: DemoProps) {
                 onClick={() => toggleCheck(ing.name)}
                 className={`flex items-center justify-between p-2.5 rounded-xl border transition-all cursor-pointer ${
                   isChecked
-                    ? 'bg-emerald-950/40 border-emerald-800/60 text-slate-400 line-through'
-                    : 'bg-slate-800/90 border-slate-700/60 text-slate-100 hover:border-slate-500'
+                    ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60 text-slate-400 dark:text-slate-500 line-through'
+                    : 'bg-white dark:bg-slate-800/90 border-slate-200 dark:border-slate-700/60 text-slate-800 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-500 shadow-xs'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   {isChecked ? (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   ) : (
-                    <Circle className="w-4 h-4 text-slate-500" />
+                    <Circle className="w-4 h-4 text-slate-400 dark:text-slate-500" />
                   )}
                   <span className="text-xs font-semibold">{ing.name}</span>
                 </div>
-                <div className="text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
+                <div className="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
                   {calculatedQty} {ing.unit}
                 </div>
               </div>
@@ -430,64 +430,64 @@ export function MedicationReminderDemo({ lang }: DemoProps) {
   };
 
   return (
-    <div className="bg-slate-900 text-slate-100 p-5 sm:p-6 rounded-2xl border border-slate-700/80 shadow-xl space-y-6 text-sm">
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+    <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/80 shadow-xl space-y-6 text-sm">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
         <div>
-          <span className="px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold uppercase tracking-wider">
+          <span className="px-2.5 py-1 rounded-full bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-xs font-bold uppercase tracking-wider border border-cyan-500/20">
             Next.js App Router Demo
           </span>
-          <h4 className="text-lg font-bold text-white mt-1">
+          <h4 className="text-lg font-bold text-slate-900 dark:text-white mt-1">
             {lang === 'id' ? 'Pengingat Minum Obat & Vitamin' : 'Medication & Health Reminder'}
           </h4>
         </div>
         <div className="text-right">
-          <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded-md border border-cyan-500/20">
+          <span className="text-[10px] font-mono text-cyan-700 dark:text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded-md border border-cyan-500/20">
             Server Component
           </span>
         </div>
       </div>
 
       {/* Progress Header */}
-      <div className="bg-gradient-to-r from-slate-800 to-cyan-950/60 p-4 rounded-xl border border-cyan-800/40 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-slate-100 to-cyan-50 dark:from-slate-800 dark:to-cyan-950/60 p-4 rounded-xl border border-cyan-200 dark:border-cyan-800/40 flex items-center justify-between shadow-xs">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-cyan-500/20 text-cyan-300">
+          <div className="p-3 rounded-xl bg-cyan-500/20 text-cyan-700 dark:text-cyan-300">
             <Pill className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs text-slate-300 block font-semibold">{lang === 'id' ? 'Kepatuhan Harian' : 'Daily Compliance'}</span>
-            <span className="text-sm font-bold text-cyan-400">
+            <span className="text-xs text-slate-600 dark:text-slate-300 block font-semibold">{lang === 'id' ? 'Kepatuhan Harian' : 'Daily Compliance'}</span>
+            <span className="text-sm font-bold text-cyan-700 dark:text-cyan-400">
               {takenCount} {lang === 'id' ? 'dari' : 'of'} {meds.length} {lang === 'id' ? 'diminum' : 'completed'}
             </span>
           </div>
         </div>
 
-        <div className="text-right font-mono font-extrabold text-2xl text-cyan-300">
+        <div className="text-right font-mono font-extrabold text-2xl text-cyan-700 dark:text-cyan-300">
           {progressPct}%
         </div>
       </div>
 
       {/* Add Form */}
-      <form onSubmit={handleAddMed} className="bg-slate-800/60 p-3.5 rounded-xl border border-slate-700/60 space-y-2">
-        <span className="text-xs font-bold text-slate-300 block">{lang === 'id' ? '+ Tambah Obat / Suplemen' : '+ Add Medication'}</span>
+      <form onSubmit={handleAddMed} className="bg-white dark:bg-slate-800/60 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-xs space-y-2">
+        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 block">{lang === 'id' ? '+ Tambah Obat / Suplemen' : '+ Add Medication'}</span>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           <input
             type="text"
             placeholder={lang === 'id' ? 'Nama Obat/Vitamin' : 'Medication Name'}
             value={nameInput}
             onChange={(e) => setNameInput(e.target.value)}
-            className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+            className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
           />
           <input
             type="text"
             placeholder={lang === 'id' ? 'Dosis (1 Tablet)' : 'Dosage (1 Tablet)'}
             value={dosageInput}
             onChange={(e) => setDosageInput(e.target.value)}
-            className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+            className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
           />
           <select
             value={timeInput}
             onChange={(e) => setTimeInput(e.target.value as any)}
-            className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-500"
+            className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
           >
             <option value="Pagi">Pagi (Morning)</option>
             <option value="Siang">Siang (Afternoon)</option>
@@ -496,7 +496,7 @@ export function MedicationReminderDemo({ lang }: DemoProps) {
         </div>
         <button
           type="submit"
-          className="w-full py-1.5 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold rounded-lg transition-colors text-xs flex items-center justify-center gap-1 shadow-md"
+          className="w-full py-1.5 bg-cyan-500 hover:bg-cyan-600 text-white dark:text-slate-950 font-bold rounded-lg transition-colors text-xs flex items-center justify-center gap-1 shadow-md"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>{lang === 'id' ? 'Simpan Jadwal' : 'Save Schedule'}</span>
@@ -505,7 +505,7 @@ export function MedicationReminderDemo({ lang }: DemoProps) {
 
       {/* Medication List */}
       <div className="space-y-2">
-        <span className="text-xs font-bold text-slate-400 block">{lang === 'id' ? 'Jadwal Hari Ini:' : 'Today Schedule:'}</span>
+        <span className="text-xs font-bold text-slate-500 dark:text-slate-400 block">{lang === 'id' ? 'Jadwal Hari Ini:' : 'Today Schedule:'}</span>
         <div className="space-y-2 max-h-52 overflow-y-auto pr-1 custom-scrollbar">
           {meds.map((item) => (
             <div
@@ -513,28 +513,28 @@ export function MedicationReminderDemo({ lang }: DemoProps) {
               onClick={() => toggleMed(item.id)}
               className={`flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer ${
                 item.taken
-                  ? 'bg-cyan-950/30 border-cyan-800/50 text-slate-400'
-                  : 'bg-slate-800/90 border-slate-700/60 text-slate-100 hover:border-slate-500'
+                  ? 'bg-cyan-50 dark:bg-cyan-950/30 border-cyan-200 dark:border-cyan-800/50 text-slate-400 dark:text-slate-500'
+                  : 'bg-white dark:bg-slate-800/90 border-slate-200 dark:border-slate-700/60 text-slate-800 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-500 shadow-xs'
               }`}
             >
               <div className="flex items-center gap-3">
                 {item.taken ? (
-                  <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-cyan-600 dark:text-cyan-400 shrink-0" />
                 ) : (
-                  <Circle className="w-5 h-5 text-slate-500 shrink-0" />
+                  <Circle className="w-5 h-5 text-slate-400 dark:text-slate-500 shrink-0" />
                 )}
                 <div>
-                  <span className={`text-xs font-bold block ${item.taken ? 'line-through text-slate-400' : 'text-white'}`}>
+                  <span className={`text-xs font-bold block ${item.taken ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-900 dark:text-white'}`}>
                     {item.name}
                   </span>
-                  <span className="text-[11px] text-slate-400">{item.dosage}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">{item.dosage}</span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300">
-                {item.timeSlot === 'Pagi' && <Sun className="w-3 h-3 text-amber-400" />}
-                {item.timeSlot === 'Siang' && <Sunset className="w-3 h-3 text-orange-400" />}
-                {item.timeSlot === 'Malam' && <Moon className="w-3 h-3 text-cyan-400" />}
+              <div className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+                {item.timeSlot === 'Pagi' && <Sun className="w-3 h-3 text-amber-500" />}
+                {item.timeSlot === 'Siang' && <Sunset className="w-3 h-3 text-orange-500" />}
+                {item.timeSlot === 'Malam' && <Moon className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />}
                 <span>{item.timeSlot}</span>
               </div>
             </div>
@@ -637,29 +637,29 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
   const formatRp = (num: number) => 'Rp ' + Math.round(num).toLocaleString('id-ID');
 
   return (
-    <div className="bg-slate-900 text-slate-100 p-5 sm:p-6 rounded-2xl border border-slate-700/80 shadow-xl space-y-6 text-sm">
+    <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/80 shadow-xl space-y-6 text-sm">
       {/* Brand Header & Tagline */}
-      <div className="pb-4 border-b border-slate-800 space-y-2">
+      <div className="pb-4 border-b border-slate-200 dark:border-slate-800 space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 text-slate-950 font-black flex items-center justify-center text-lg tracking-wider shadow-lg">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 text-white dark:text-slate-950 font-black flex items-center justify-center text-lg tracking-wider shadow-lg">
               Z
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h4 className="text-xl font-extrabold text-white tracking-wide">ZIVO Marketplace</h4>
-                <span className="px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-[10px] font-bold border border-teal-500/30">
+                <h4 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-wide">ZIVO Marketplace</h4>
+                <span className="px-2 py-0.5 rounded-full bg-teal-500/10 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300 text-[10px] font-bold border border-teal-500/30">
                   Next.js 15.3 Engine
                 </span>
               </div>
-              <p className="text-xs text-teal-400 font-medium italic">
+              <p className="text-xs text-teal-600 dark:text-teal-400 font-medium italic">
                 {lang === 'id' ? '“Belanja lebih cepat. Lebih cerdas. Lebih terpercaya.”' : '“Shop smarter. Faster. Better.”'}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 text-xs font-semibold text-slate-300">
-            <Globe className="w-3.5 h-3.5 text-teal-400" />
+          <div className="flex items-center gap-1.5 bg-white dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-xs">
+            <Globe className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
             <span>{lang === 'id' ? 'Bahasa Indonesia' : 'English (US)'}</span>
           </div>
         </div>
@@ -670,8 +670,8 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
             onClick={() => setActiveTab('cart')}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'cart'
-                ? 'bg-teal-500 text-slate-950 shadow-md font-black'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                ? 'bg-teal-500 text-white dark:text-slate-950 shadow-md font-black'
+                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-xs'
             }`}
           >
             <ShoppingCart className="w-3.5 h-3.5" />
@@ -682,8 +682,8 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
             onClick={() => setActiveTab('tracking')}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'tracking'
-                ? 'bg-emerald-500 text-slate-950 shadow-md font-black'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                ? 'bg-emerald-500 text-white dark:text-slate-950 shadow-md font-black'
+                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-xs'
             }`}
           >
             <Truck className="w-3.5 h-3.5" />
@@ -694,8 +694,8 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
             onClick={() => setActiveTab('redis')}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'redis'
-                ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                ? 'bg-cyan-500 text-white dark:text-slate-950 shadow-md font-black'
+                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-xs'
             }`}
           >
             <Server className="w-3.5 h-3.5" />
@@ -706,8 +706,8 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
             onClick={() => setActiveTab('architecture')}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'architecture'
-                ? 'bg-amber-500 text-slate-950 shadow-md font-black'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                ? 'bg-amber-500 text-white dark:text-slate-950 shadow-md font-black'
+                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-xs'
             }`}
           >
             <Layers3 className="w-3.5 h-3.5" />
@@ -720,14 +720,14 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
       {activeTab === 'cart' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-bold text-slate-300 flex items-center gap-1.5">
-              <ShoppingBag className="w-4 h-4 text-teal-400" />
+            <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+              <ShoppingBag className="w-4 h-4 text-teal-600 dark:text-teal-400" />
               <span>{lang === 'id' ? 'Item Dalam Keranjang Belanja' : 'Shopping Cart Items'} ({cartItems.length})</span>
             </span>
 
             <button
               onClick={() => setBrokenImgTest(!brokenImgTest)}
-              className="text-[11px] font-semibold text-amber-400 hover:text-amber-300 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20 flex items-center gap-1"
+              className="text-[11px] font-semibold text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20 flex items-center gap-1"
             >
               <ImageOff className="w-3 h-3" />
               <span>{brokenImgTest ? 'Reset Gambar HD' : 'Uji Fallback Gambar Rusak'}</span>
@@ -737,10 +737,10 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
           {/* Item List */}
           <div className="space-y-2 max-h-56 overflow-y-auto pr-1 custom-scrollbar">
             {cartItems.length === 0 ? (
-              <p className="text-center text-slate-500 py-6">{lang === 'id' ? 'Keranjang belanja Anda kosong.' : 'Your cart is currently empty.'}</p>
+              <p className="text-center text-slate-400 dark:text-slate-500 py-6">{lang === 'id' ? 'Keranjang belanja Anda kosong.' : 'Your cart is currently empty.'}</p>
             ) : (
               cartItems.map((item) => (
-                <div key={item.id} className="p-3 rounded-xl bg-slate-800/90 border border-slate-700/60 flex items-center justify-between gap-3">
+                <div key={item.id} className="p-3 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/60 flex items-center justify-between gap-3 shadow-xs">
                   <div className="flex items-center gap-3">
                     <img
                       src={brokenImgTest ? 'https://broken-link-example.com/invalid.jpg' : item.image}
@@ -750,31 +750,31 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
                         const parent = (e.target as HTMLElement).parentElement;
                         if (parent && !parent.querySelector('.fallback-box')) {
                           const fallback = document.createElement('div');
-                          fallback.className = 'fallback-box w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center text-[10px] text-teal-400 font-bold text-center p-1';
+                          fallback.className = 'fallback-box w-12 h-12 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-center justify-center text-[10px] text-teal-600 dark:text-teal-400 font-bold text-center p-1';
                           fallback.innerText = 'ZIVO HD';
                           parent.appendChild(fallback);
                         }
                       }}
-                      className="w-12 h-12 rounded-lg object-cover border border-slate-700 shrink-0"
+                      className="w-12 h-12 rounded-lg object-cover border border-slate-200 dark:border-slate-700 shrink-0"
                     />
                     <div>
-                      <span className="text-xs font-bold text-white block max-w-[200px] sm:max-w-[260px] truncate">{item.name}</span>
-                      <span className="text-[11px] font-mono text-teal-400 font-bold">{formatRp(item.price)}</span>
+                      <span className="text-xs font-bold text-slate-900 dark:text-white block max-w-[200px] sm:max-w-[260px] truncate">{item.name}</span>
+                      <span className="text-[11px] font-mono text-teal-600 dark:text-teal-400 font-bold">{formatRp(item.price)}</span>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2 bg-slate-900 px-2 py-1 rounded-lg border border-slate-700">
-                      <button onClick={() => updateQty(item.id, -1)} className="w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center text-xs">
+                    <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900 px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
+                      <button onClick={() => updateQty(item.id, -1)} className="w-5 h-5 rounded bg-white dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold flex items-center justify-center text-xs shadow-xs">
                         -
                       </button>
-                      <span className="font-mono text-xs font-bold text-white min-w-[16px] text-center">{item.qty}</span>
-                      <button onClick={() => updateQty(item.id, 1)} className="w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center text-xs">
+                      <span className="font-mono text-xs font-bold text-slate-900 dark:text-white min-w-[16px] text-center">{item.qty}</span>
+                      <button onClick={() => updateQty(item.id, 1)} className="w-5 h-5 rounded bg-white dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold flex items-center justify-center text-xs shadow-xs">
                         +
                       </button>
                     </div>
 
-                    <button onClick={() => removeItem(item.id)} className="text-slate-500 hover:text-rose-400 p-1" title="Hapus">
+                    <button onClick={() => removeItem(item.id)} className="text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 p-1" title="Hapus">
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
@@ -784,50 +784,50 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
           </div>
 
           {/* Coupon Code Input */}
-          <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60 space-y-2">
+          <div className="bg-white dark:bg-slate-800/60 p-3 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-xs space-y-2">
             <div className="flex gap-2">
               <input
                 type="text"
                 placeholder={lang === 'id' ? 'Masukkan kode kupon (ZIVO10 / ZIVO20)' : 'Coupon code (ZIVO10 / ZIVO20)'}
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value)}
-                className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white uppercase placeholder-slate-500 focus:outline-none focus:border-teal-500"
+                className="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-900 dark:text-white uppercase placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-teal-500"
               />
               <button
                 onClick={applyCoupon}
-                className="px-3 py-1.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold rounded-lg text-xs transition-colors"
+                className="px-3 py-1.5 bg-teal-500 hover:bg-teal-400 text-white dark:text-slate-950 font-bold rounded-lg text-xs transition-colors"
               >
                 {lang === 'id' ? 'Gunakan Kupon' : 'Apply'}
               </button>
             </div>
             {couponStatusMsg && (
-              <span className="text-[11px] font-semibold text-emerald-400 block">{couponStatusMsg}</span>
+              <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 block">{couponStatusMsg}</span>
             )}
           </div>
 
           {/* Price Calculation Summary */}
-          <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
-            <div className="flex justify-between text-slate-400">
+          <div className="bg-white dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2 text-xs shadow-xs">
+            <div className="flex justify-between text-slate-500 dark:text-slate-400">
               <span>Subtotal Produk</span>
-              <span className="font-mono text-slate-200">{formatRp(subtotal)}</span>
+              <span className="font-mono text-slate-800 dark:text-slate-200">{formatRp(subtotal)}</span>
             </div>
             {appliedDiscount > 0 && (
-              <div className="flex justify-between text-emerald-400 font-semibold">
+              <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-semibold">
                 <span>Diskon Kupon ({(appliedDiscount * 100)}%)</span>
                 <span className="font-mono">-{formatRp(discountAmount)}</span>
               </div>
             )}
-            <div className="flex justify-between text-slate-400">
+            <div className="flex justify-between text-slate-500 dark:text-slate-400">
               <span>Estimasi Ongkos Kirim (JNE/ZIVO Express)</span>
-              <span className="font-mono text-slate-200">{formatRp(shippingFee)}</span>
+              <span className="font-mono text-slate-800 dark:text-slate-200">{formatRp(shippingFee)}</span>
             </div>
-            <div className="flex justify-between text-slate-400">
+            <div className="flex justify-between text-slate-500 dark:text-slate-400">
               <span>PPN 11% (Pajak Pertambahan Nilai)</span>
-              <span className="font-mono text-slate-200">{formatRp(taxPPN)}</span>
+              <span className="font-mono text-slate-800 dark:text-slate-200">{formatRp(taxPPN)}</span>
             </div>
-            <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-sm font-bold">
-              <span className="text-white">Grand Total Pembayaran</span>
-              <span className="text-teal-400 font-mono text-base">{formatRp(grandTotal)}</span>
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-sm font-bold">
+              <span className="text-slate-900 dark:text-white">Grand Total Pembayaran</span>
+              <span className="text-teal-600 dark:text-teal-400 font-mono text-base">{formatRp(grandTotal)}</span>
             </div>
           </div>
         </div>
@@ -835,15 +835,15 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
 
       {/* TAB 2: LIVE COURIER ORDER TRACKING */}
       {activeTab === 'tracking' && (
-        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div className="bg-white dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <span className="text-xs text-slate-400 block font-semibold">{lang === 'id' ? 'Nomor Resi Pengiriman' : 'Tracking Number'}</span>
-              <span className="text-sm font-mono font-bold text-teal-400">ZV-98421049-ID</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 block font-semibold">{lang === 'id' ? 'Nomor Resi Pengiriman' : 'Tracking Number'}</span>
+              <span className="text-sm font-mono font-bold text-teal-600 dark:text-teal-400">ZV-98421049-ID</span>
             </div>
             <button
               onClick={simulateGPSRefresh}
-              className="px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5 transition-colors"
+              className="px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center gap-1.5 transition-colors"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${refreshingGPS ? 'animate-spin' : ''}`} />
               <span>{lang === 'id' ? 'Refresh GPS Kurir' : 'Live GPS Refresh'}</span>
@@ -851,24 +851,24 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
           </div>
 
           {/* Live Courier Details */}
-          <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+          <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-teal-500/20 border border-teal-500/40 text-teal-300 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-full bg-teal-500/20 border border-teal-500/40 text-teal-600 dark:text-teal-300 flex items-center justify-center font-bold">
                 <Truck className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xs font-bold text-white block">Kurir: ZIVO Express (Pak Budi S.)</span>
-                <span className="text-[11px] text-slate-400">Armada Motor • Nopol B 4820 ZVO</span>
+                <span className="text-xs font-bold text-slate-900 dark:text-white block">Kurir: ZIVO Express (Pak Budi S.)</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">Armada Motor • Nopol B 4820 ZVO</span>
               </div>
             </div>
-            <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold border border-emerald-500/30 animate-pulse">
+            <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold border border-emerald-500/30 animate-pulse">
               ● Live Tracking
             </span>
           </div>
 
           {/* Timeline Steps */}
           <div className="space-y-3 pt-2">
-            <span className="text-xs font-bold text-slate-300 block">{lang === 'id' ? 'Linimasa Pengiriman' : 'Shipment Timeline'}</span>
+            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 block">{lang === 'id' ? 'Linimasa Pengiriman' : 'Shipment Timeline'}</span>
             <div className="space-y-2.5">
               {[
                 { step: 1, title: 'Pesanan Diterima & Terkonfirmasi', desc: 'Sistem ZIVO memverifikasi pembayaran PPN 11%', time: '10:15 WIB' },
@@ -878,15 +878,15 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
               ].map((item) => (
                 <div key={item.step} className="flex items-start gap-3 text-xs">
                   <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 font-mono text-[10px] font-bold ${
-                    item.step <= trackingStep ? 'bg-teal-500 text-slate-950' : 'bg-slate-800 text-slate-500 border border-slate-700'
+                    item.step <= trackingStep ? 'bg-teal-500 text-white dark:text-slate-950' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700'
                   }`}>
                     {item.step <= trackingStep ? '✓' : item.step}
                   </div>
                   <div className="flex-1">
-                    <span className={`font-bold block ${item.step === trackingStep ? 'text-teal-300' : 'text-slate-300'}`}>{item.title}</span>
-                    <span className="text-[11px] text-slate-400 block">{item.desc}</span>
+                    <span className={`font-bold block ${item.step === trackingStep ? 'text-teal-600 dark:text-teal-300' : 'text-slate-800 dark:text-slate-300'}`}>{item.title}</span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{item.desc}</span>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-500">{item.time}</span>
+                  <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{item.time}</span>
                 </div>
               ))}
             </div>
@@ -898,21 +898,21 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
       {activeTab === 'redis' && (
         <div className="space-y-4">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
-              <span className="text-[11px] text-slate-400 block mb-0.5">Redis Cache Hits</span>
-              <span className="text-lg font-bold text-emerald-400 font-mono">{cacheHitCount}</span>
+            <div className="bg-white dark:bg-slate-800/80 p-3 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-xs">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-0.5">Redis Cache Hits</span>
+              <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400 font-mono">{cacheHitCount}</span>
             </div>
-            <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
-              <span className="text-[11px] text-slate-400 block mb-0.5">Redis Cache Misses</span>
-              <span className="text-lg font-bold text-rose-400 font-mono">{cacheMissCount}</span>
+            <div className="bg-white dark:bg-slate-800/80 p-3 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-xs">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-0.5">Redis Cache Misses</span>
+              <span className="text-lg font-bold text-rose-600 dark:text-rose-400 font-mono">{cacheMissCount}</span>
             </div>
-            <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
-              <span className="text-[11px] text-slate-400 block mb-0.5">Kecepatan Kueri</span>
-              <span className="text-sm font-bold text-cyan-300 font-mono">{lastQueryTime}</span>
+            <div className="bg-white dark:bg-slate-800/80 p-3 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-xs">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-0.5">Kecepatan Kueri</span>
+              <span className="text-sm font-bold text-cyan-600 dark:text-cyan-300 font-mono">{lastQueryTime}</span>
             </div>
-            <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
-              <span className="text-[11px] text-slate-400 block mb-0.5">Hit Ratio</span>
-              <span className="text-lg font-bold text-amber-400 font-mono">
+            <div className="bg-white dark:bg-slate-800/80 p-3 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-xs">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-0.5">Hit Ratio</span>
+              <span className="text-lg font-bold text-amber-600 dark:text-amber-400 font-mono">
                 {((cacheHitCount / (cacheHitCount + cacheMissCount)) * 100).toFixed(1)}%
               </span>
             </div>
@@ -921,25 +921,25 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
           <div className="flex items-center gap-2">
             <button
               onClick={() => triggerRedisQuery('hit')}
-              className="flex-1 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5"
+              className="flex-1 py-2 bg-emerald-500 hover:bg-emerald-400 text-white dark:text-slate-950 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5 shadow-md"
             >
               <Zap className="w-3.5 h-3.5" />
               <span>Simulasi Query Cache HIT (0.8ms)</span>
             </button>
             <button
               onClick={() => triggerRedisQuery('miss')}
-              className="flex-1 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5"
+              className="flex-1 py-2 bg-rose-500/10 dark:bg-rose-500/20 hover:bg-rose-500/20 dark:hover:bg-rose-500/30 text-rose-700 dark:text-rose-300 border border-rose-500/30 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5"
             >
               <Database className="w-3.5 h-3.5" />
               <span>Simulasi Cold DB Fetch (110ms)</span>
             </button>
           </div>
 
-          <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 font-mono text-[11px] space-y-1.5">
-            <span className="text-slate-400 text-[10px] uppercase tracking-wider block font-sans">Active Redis Cache Keys:</span>
-            <div className="text-emerald-400">SET zivo:catalog:featured_v2 TTL 3600 (OK)</div>
-            <div className="text-cyan-400">GET zivo:cart:session_usr_9842 -&gt; 3 items cached</div>
-            <div className="text-amber-400">RATE_LIMIT zivo:ip:103.28.14.2 -&gt; 24/100 req/min</div>
+          <div className="bg-slate-100 dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-[11px] space-y-1.5 text-slate-800 dark:text-slate-100 shadow-xs">
+            <span className="text-slate-500 dark:text-slate-400 text-[10px] uppercase tracking-wider block font-sans font-semibold">Active Redis Cache Keys:</span>
+            <div className="text-emerald-700 dark:text-emerald-400 font-semibold">SET zivo:catalog:featured_v2 TTL 3600 (OK)</div>
+            <div className="text-cyan-700 dark:text-cyan-400 font-semibold">GET zivo:cart:session_usr_9842 -&gt; 3 items cached</div>
+            <div className="text-amber-700 dark:text-amber-400 font-semibold">RATE_LIMIT zivo:ip:103.28.14.2 -&gt; 24/100 req/min</div>
           </div>
         </div>
       )}
@@ -947,37 +947,37 @@ export function ZivoMarketplaceDemo({ lang }: DemoProps) {
       {/* TAB 4: ATOMIC DESIGN & TECH STACK MATRIX */}
       {activeTab === 'architecture' && (
         <div className="space-y-4">
-          <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 text-xs">
-            <span className="font-bold text-amber-400 block text-sm">Structure Pattern: Atomic Design System</span>
+          <div className="bg-white dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3 text-xs shadow-xs">
+            <span className="font-bold text-amber-600 dark:text-amber-400 block text-sm">Structure Pattern: Atomic Design System</span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
-              <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                <span className="text-teal-400 font-bold block mb-1">1. Atoms</span>
-                <span className="text-slate-300">Badge, Button, Input, IconWrapper, Spinner</span>
+              <div className="bg-slate-50 dark:bg-slate-900 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
+                <span className="text-teal-600 dark:text-teal-400 font-bold block mb-1">1. Atoms</span>
+                <span className="text-slate-700 dark:text-slate-300">Badge, Button, Input, IconWrapper, Spinner</span>
               </div>
-              <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                <span className="text-emerald-400 font-bold block mb-1">2. Molecules</span>
-                <span className="text-slate-300">LanguageDropdown, Pagination, ProductCard, SearchBar, Toast</span>
+              <div className="bg-slate-50 dark:bg-slate-900 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold block mb-1">2. Molecules</span>
+                <span className="text-slate-700 dark:text-slate-300">LanguageDropdown, Pagination, ProductCard, SearchBar, Toast</span>
               </div>
-              <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                <span className="text-cyan-400 font-bold block mb-1">3. Organisms</span>
-                <span className="text-slate-300">CartDrawer, Navbar, ProductGrid, RedisCacheDrawer, OrderTracker</span>
+              <div className="bg-slate-50 dark:bg-slate-900 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
+                <span className="text-cyan-600 dark:text-cyan-400 font-bold block mb-1">3. Organisms</span>
+                <span className="text-slate-700 dark:text-slate-300">CartDrawer, Navbar, ProductGrid, RedisCacheDrawer, OrderTracker</span>
               </div>
-              <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                <span className="text-amber-400 font-bold block mb-1">4. Templates</span>
-                <span className="text-slate-300">HeroBanner, Footer, PageWrapper, LayoutGrid</span>
+              <div className="bg-slate-50 dark:bg-slate-900 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
+                <span className="text-amber-600 dark:text-amber-400 font-bold block mb-1">4. Templates</span>
+                <span className="text-slate-700 dark:text-slate-300">HeroBanner, Footer, PageWrapper, LayoutGrid</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60 text-xs space-y-2">
-            <span className="font-bold text-slate-200 block">Tech Stack Matrix:</span>
+          <div className="bg-white dark:bg-slate-800/60 p-3 rounded-xl border border-slate-200 dark:border-slate-700/60 text-xs space-y-2 shadow-xs">
+            <span className="font-bold text-slate-800 dark:text-slate-200 block">Tech Stack Matrix:</span>
             <div className="flex flex-wrap gap-2 text-[11px]">
-              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-teal-300 border border-slate-700">Next.js 15.3</span>
-              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-emerald-300 border border-slate-700">React 19</span>
-              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-cyan-300 border border-slate-700">TypeScript 5.8</span>
-              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-amber-300 border border-slate-700">Zustand State</span>
-              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-rose-300 border border-slate-700">Storybook 8.6</span>
-              <span className="bg-slate-900 px-2.5 py-1 rounded-md text-purple-300 border border-slate-700">Playwright 1.54 E2E</span>
+              <span className="bg-slate-100 dark:bg-slate-900 px-2.5 py-1 rounded-md text-teal-700 dark:text-teal-300 border border-slate-200 dark:border-slate-700">Next.js 15.3</span>
+              <span className="bg-slate-100 dark:bg-slate-900 px-2.5 py-1 rounded-md text-emerald-700 dark:text-emerald-300 border border-slate-200 dark:border-slate-700">React 19</span>
+              <span className="bg-slate-100 dark:bg-slate-900 px-2.5 py-1 rounded-md text-cyan-700 dark:text-cyan-300 border border-slate-200 dark:border-slate-700">TypeScript 5.8</span>
+              <span className="bg-slate-100 dark:bg-slate-900 px-2.5 py-1 rounded-md text-amber-700 dark:text-amber-300 border border-slate-200 dark:border-slate-700">Zustand State</span>
+              <span className="bg-slate-100 dark:bg-slate-900 px-2.5 py-1 rounded-md text-rose-700 dark:text-rose-300 border border-slate-200 dark:border-slate-700">Storybook 8.6</span>
+              <span className="bg-slate-100 dark:bg-slate-900 px-2.5 py-1 rounded-md text-purple-700 dark:text-purple-300 border border-slate-200 dark:border-slate-700">Playwright 1.54 E2E</span>
             </div>
           </div>
         </div>

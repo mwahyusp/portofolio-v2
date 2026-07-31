@@ -1,6 +1,6 @@
 import { useState, ElementType } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Code2, Palette, FileCode, Layers, Zap, GitBranch, Layout, Globe, Wrench } from 'lucide-react';
+import { Code2, Palette, FileCode, Layers, Zap, GitBranch, Layout, Globe, Server, Database, Wrench } from 'lucide-react';
 import { SKILLS, UI_TRANSLATIONS } from '../data/portfolioData';
 import { Language } from '../types';
 
@@ -13,6 +13,8 @@ const iconMap: Record<string, ElementType> = {
   GitBranch,
   Layout,
   Globe,
+  Server,
+  Database,
 };
 
 interface SkillsProps {
@@ -25,9 +27,11 @@ export default function Skills({ lang }: SkillsProps) {
 
   const categories = [
     { key: 'ALL', label: t.allTab },
-    { key: 'Frontend', label: 'Frontend' },
-    { key: 'Framework', label: 'Framework' },
-    { key: 'Tools', label: 'Tools' },
+    { key: 'Frontend', label: t.frontendTab || 'Frontend' },
+    { key: 'Framework', label: t.frameworkTab || 'Framework' },
+    { key: 'Backend', label: t.backendTab || 'Backend' },
+    { key: 'Database & Cloud', label: t.databaseTab || 'Database & Cloud' },
+    { key: 'Tools', label: t.toolsTab || 'Tools & Utilities' },
   ];
 
   const filteredSkills = filter === 'ALL'
