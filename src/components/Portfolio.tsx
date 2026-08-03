@@ -223,7 +223,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
         {/* Detailed Modal Overlay */}
         <AnimatePresence>
           {selectedProject && (
-            <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 overflow-y-auto overscroll-contain">
+            <div className="fixed inset-0 z-[1000] flex items-center justify-center pt-20 pb-8 px-4 sm:pt-24 sm:pb-12 sm:px-6 md:pt-24 md:pb-12 overflow-y-auto overscroll-contain">
               {/* Backdrop */}
               <motion.div
                 initial={{ opacity: 0 }}
@@ -239,7 +239,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                className="relative z-10 bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto overscroll-contain"
+                className="relative z-10 bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 max-h-[calc(100vh-6.5rem)] sm:max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain my-auto"
               >
                 {/* Close Button */}
                 <button

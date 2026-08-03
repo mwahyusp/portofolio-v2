@@ -292,7 +292,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1758187313/todo-apps-react-context-api_m5kxz4.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1758187300/todo-apps-react-context-api_amqtff.png',
     liveDemoUrl: 'https://todo-apps-react-context-api.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp/todo-apps-react-context-api',
+    githubUrl: 'https://github.com/mwahyusp',
     tags: ['React.js', 'Context API', 'Glassmorphism', 'Tailwind CSS', 'Dark Mode'],
     featured: true
   },
@@ -314,7 +314,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1758802772/mental-health-tracker_1_wcqhjk.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1758802735/mental-health-tracker_n4ksia.png',
     liveDemoUrl: 'https://mental-health-tracker-three.vercel.app/',
-    githubUrl: 'https://github.com/mwahyusp/mental-health-tracker',
+    githubUrl: 'https://github.com/mwahyusp',
     tags: ['React.js', 'Chart.js', 'Tailwind CSS', 'LocalStorage', 'Wellness'],
     featured: true
   },
@@ -335,7 +335,7 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317696/paws-grooming_dnqeh0.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757317740/paws-grooming_diuoe1.png',
-    liveDemoUrl: 'https://paws-grooming-seven.vercel.app/',
+    liveDemoUrl: 'https://mwahyusp.github.io/paws-grooming/',
     githubUrl: 'https://github.com/mwahyusp/paws-grooming',
     tags: ['HTML5', 'Tailwind CSS', 'JavaScript', 'Responsive UI'],
     featured: false
@@ -358,7 +358,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318159/contact-apps_lyrmyz.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318147/contact-apps_hzkzc9.png',
     liveDemoUrl: 'https://contacts-app-nine.vercel.app/',
-    githubUrl: 'https://github.com/mwahyusp/contacts-app',
+    githubUrl: 'https://github.com/mwahyusp',
     tags: ['React.js', 'State Management', 'Search Filter', 'Tailwind CSS'],
     featured: false
   },
@@ -380,7 +380,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171923/my-privy-noter_tihfp9.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757171924/my-privy-noter_lvtyif.png',
     liveDemoUrl: 'https://my-privy-noter.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp/my-privy-noter',
+    githubUrl: 'https://github.com/mwahyusp',
     tags: ['React.js', 'Notes System', 'Archive Feature', 'CSS Modules'],
     featured: false
   },
@@ -402,7 +402,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318159/simple-blog_uvho0d.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757318147/simple-blog_rdhkkj.png',
     liveDemoUrl: 'https://simplee-blog.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp/simple-blog-rvt',
+    githubUrl: 'https://github.com/mwahyusp',
     tags: ['React.js', 'Vite', 'Tailwind CSS', 'Full CRUD'],
     featured: false
   },
@@ -424,7 +424,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1759740765/gif-oasis-search-app_ukrlew.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1759740766/gif-oasis-search-app_hhuor9.png',
     liveDemoUrl: 'https://gif-oasis-search-app.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp/gif-oasis-search-app',
+    githubUrl: 'https://github.com/mwahyusp',
     tags: ['React.js', 'Giphy API', 'Dark Theme', 'Tailwind CSS', 'Smooth Transitions'],
     featured: true
   },
@@ -446,7 +446,7 @@ export const PROJECTS: Project[] = [
     imageWebp: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757929313/contact-form-next_baslyl.webp',
     imagePng: 'https://res.cloudinary.com/dslkxsifx/image/upload/v1757929350/contact-form-next_hsakcs.png',
     liveDemoUrl: 'https://contact-form-nextjs.netlify.app/',
-    githubUrl: 'https://github.com/mwahyusp/contact-form-nextjs',
+    githubUrl: 'https://github.com/mwahyusp',
     tags: ['Next.js', 'Tailwind CSS', 'Form Handling', 'React Hooks'],
     featured: false
   },
@@ -467,13 +467,13 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
     imagePng: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
-    liveDemoUrl: 'https://daily-expense-budget-tracker.vercel.app/',
-    githubUrl: 'https://github.com/mwahyusp/Daily-Expense-Budget-Tracker',
+    liveDemoUrl: 'https://mwahyusp.github.io/expense-tracker-react/',
+    githubUrl: 'https://github.com/mwahyusp/expense-tracker-react',
     tags: ['React.js', 'State Management', 'Budgeting', 'Tailwind CSS', 'Local Storage'],
     featured: true
   },
   {
-    id: 'calculator-portion-recipe',
+    id: 'recipe-scaler-react',
     title: {
       id: 'Kalkulator Porsi Resep Masakan Dapur',
       en: 'Kitchen Recipe & Portion Scaler'
@@ -489,8 +489,8 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80',
     imagePng: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80',
-    liveDemoUrl: 'https://calculator-portion-recipe.vercel.app',
-    githubUrl: 'https://github.com/mwahyusp/calculator-portion-recipe',
+    liveDemoUrl: 'https://mwahyusp.github.io/recipe-scaler-react/',
+    githubUrl: 'https://github.com/mwahyusp/recipe-scaler-react',
     tags: ['React.js', 'Interactive UI', 'Meal Prep', 'Dynamic Math', 'Tailwind CSS'],
     featured: true
   },
@@ -511,8 +511,8 @@ export const PROJECTS: Project[] = [
     },
     imageWebp: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
     imagePng: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-    liveDemoUrl: 'https://medication-vitamin-reminder.vercel.app/',
-    githubUrl: 'https://github.com/mwahyusp/medication-vitamin-reminder',
+    liveDemoUrl: 'https://medication-reminder-next.vercel.app/',
+    githubUrl: 'https://github.com/mwahyusp/medication-reminder-next',
     tags: ['Next.js', 'React Hooks', 'Health Tracker', 'Tailwind CSS', 'Server Components'],
     featured: true
   },
