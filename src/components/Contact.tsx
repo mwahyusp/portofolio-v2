@@ -58,7 +58,7 @@ export default function Contact({ lang }: ContactProps) {
   };
 
   return (
-    <section id="contact" className="py-24 bg-white dark:bg-slate-900 relative overflow-hidden">
+    <section id="contact" className="pt-32 sm:pt-36 lg:pt-40 pb-24 bg-white dark:bg-slate-900 relative overflow-hidden">
       {/* Floating Global Toast Notification */}
       <AnimatePresence>
         {copiedEmail && (

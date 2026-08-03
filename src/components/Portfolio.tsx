@@ -20,9 +20,10 @@ const GithubIcon = (props: { className?: string }) => {
 
 interface PortfolioProps {
   lang: Language;
+  onModalToggle?: (isOpen: boolean) => void;
 }
 
-export default function Portfolio({ lang }: PortfolioProps) {
+export default function Portfolio({ lang, onModalToggle }: PortfolioProps) {
   const t = UI_TRANSLATIONS[lang].portfolio;
   const [activeCategory, setActiveCategory] = useState<CategoryType>('Semua');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -33,16 +34,19 @@ export default function Portfolio({ lang }: PortfolioProps) {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
+      onModalToggle?.(true);
     } else {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
+      onModalToggle?.(false);
     }
 
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
+      onModalToggle?.(false);
     };
-  }, [selectedProject]);
+  }, [selectedProject, onModalToggle]);
 
   const categories: { key: CategoryType; label: string }[] = [
     { key: 'Semua', label: t.allTab },
@@ -62,7 +66,7 @@ export default function Portfolio({ lang }: PortfolioProps) {
   };
 
   return (
-    <section id="portfolio" className="py-24 bg-slate-100/80 dark:bg-slate-900/80 relative">
+    <section id="portfolio" className="pt-24 pb-32 sm:pb-36 lg:pb-40 bg-slate-100/80 dark:bg-slate-900/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Title */}

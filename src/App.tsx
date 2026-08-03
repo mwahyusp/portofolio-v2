@@ -32,6 +32,7 @@ export default function App() {
   });
 
   const [activeSection, setActiveSection] = useState<string>('home');
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -82,16 +83,17 @@ export default function App() {
         lang={lang}
         setLang={setLang}
         activeSection={activeSection}
+        isModalOpen={isModalOpen}
       />
       <main>
         <Hero lang={lang} />
         <About lang={lang} />
         <Skills lang={lang} />
-        <Portfolio lang={lang} />
+        <Portfolio lang={lang} onModalToggle={setIsModalOpen} />
         <Contact lang={lang} />
       </main>
       <Footer lang={lang} />
-      <BackToTop />
+      <BackToTop isModalOpen={isModalOpen} />
     </div>
   );
 }

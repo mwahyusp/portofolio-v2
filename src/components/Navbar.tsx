@@ -10,13 +10,20 @@ interface NavbarProps {
   lang: Language;
   setLang: (lang: Language) => void;
   activeSection: string;
+  isModalOpen?: boolean;
 }
 
-export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSection }: NavbarProps) {
+export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSection, isModalOpen }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const t = UI_TRANSLATIONS[lang].nav;
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setMobileMenuOpen(false);
+    }
+  }, [isModalOpen]);
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -69,12 +76,18 @@ export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSec
     <>
       {/* Top Scroll Progress Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 via-emerald-400 to-teal-600 z-[100] origin-left"
+        className={`fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 via-emerald-400 to-teal-600 z-[100] origin-left transition-opacity duration-300 ${
+          isModalOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
         style={{ scaleX }}
       />
 
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isModalOpen
+            ? 'opacity-0 pointer-events-none -translate-y-full invisible'
+            : 'opacity-100 translate-y-0 visible'
+        } ${
           isScrolled
             ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg border-b border-slate-200/50 dark:border-slate-800/50 py-3'
             : 'bg-transparent py-5'
