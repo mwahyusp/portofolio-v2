@@ -131,7 +131,10 @@ export default function Contact({ lang }: ContactProps) {
                   </div>
                   <div className="min-w-0">
                     <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">{t.emailLabel}</span>
-                    <a href={`mailto:${PERSONAL_INFO.email}`} className="text-sm sm:text-base font-bold text-slate-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 truncate block">
+                    <a
+                      href={`mailto:${PERSONAL_INFO.email}`}
+                      className="text-sm sm:text-base font-bold text-slate-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 truncate block"
+                    >
                       {PERSONAL_INFO.email}
                     </a>
                   </div>

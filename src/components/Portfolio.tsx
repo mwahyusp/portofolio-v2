@@ -1,6 +1,17 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, Eye, Sparkles, X, Code, Copy, Check, Play, FileCode, Info } from 'lucide-react';
+import { 
+  ExternalLink, 
+  Eye, 
+  Sparkles, 
+  X, 
+  Code, 
+  Copy, 
+  Check, 
+  Play, 
+  FileCode, 
+  Info
+} from 'lucide-react';
 import { FaGithub } from 'react-icons/fa6';
 import { PROJECTS, UI_TRANSLATIONS } from '../data/portfolioData';
 import { Project, CategoryType, Language } from '../types';
@@ -10,8 +21,11 @@ import {
   MedicationReminderDemo, 
   ElectricityEstimatorDemo,
   ZivoMarketplaceDemo,
+  MiniProductCatalogDemo,
+  ProductReviewRatingDemo,
   SOURCE_CODES
 } from './InteractiveDemos';
+import QaTestingDemo, { QA_TESTING_SOURCE_CODE } from './QaTestingDemo';
 
 const GithubIcon = (props: { className?: string }) => {
   const Icon = FaGithub as any;
@@ -50,6 +64,7 @@ export default function Portfolio({ lang, onModalToggle }: PortfolioProps) {
 
   const categories: { key: CategoryType; label: string }[] = [
     { key: 'Semua', label: t.allTab },
+    { key: 'QA & Testing', label: 'QA & Testing' },
     { key: 'React', label: 'React' },
     { key: 'Next.js', label: 'Next.js' },
     { key: 'Interactive Apps', label: 'Interactive Apps' },
@@ -166,6 +181,13 @@ export default function Portfolio({ lang, onModalToggle }: PortfolioProps) {
                       <span>{t.featuredBadge}</span>
                     </div>
                   )}
+
+                  {/* QA & Testing Badge */}
+                  {project.category === 'QA & Testing' && (
+                    <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-emerald-600/90 text-white text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-md flex items-center gap-1">
+                      <span>🎯 QA Portfolio</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Project Details */}
@@ -182,7 +204,7 @@ export default function Portfolio({ lang, onModalToggle }: PortfolioProps) {
 
                   <div>
                     {/* Tech Tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-5">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                       {project.tags.map((tag, idx) => (
                         <span
                           key={idx}
@@ -326,7 +348,7 @@ export default function Portfolio({ lang, onModalToggle }: PortfolioProps) {
                     </div>
 
                     {/* Stack Badges */}
-                    <div className="mb-8">
+                    <div className="mb-6">
                       <h4 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">{t.techUsedLabel}</h4>
                       <div className="flex flex-wrap gap-2">
                         {selectedProject.tags.map((tag, i) => (
@@ -346,12 +368,15 @@ export default function Portfolio({ lang, onModalToggle }: PortfolioProps) {
                 {/* TAB 2: INTERACTIVE DEMO */}
                 {modalTab === 'demo' && (
                   <div className="mb-6">
+                    {selectedProject.id === 'mini-product-catalog' && <MiniProductCatalogDemo lang={lang} />}
+                    {selectedProject.id === 'product-review-rating' && <ProductReviewRatingDemo lang={lang} />}
                     {selectedProject.id === 'expense-tracker-react' && <ExpenseTrackerDemo lang={lang} />}
                     {selectedProject.id === 'recipe-scaler-react' && <RecipeScalerDemo lang={lang} />}
                     {selectedProject.id === 'medication-reminder-next' && <MedicationReminderDemo lang={lang} />}
                     {(selectedProject.id === 'zivo-marketplace-next' || selectedProject.id === 'electricity-estimator-next') && <ZivoMarketplaceDemo lang={lang} />}
+                    {selectedProject.id === 'qa-testing-ecommerce' && <QaTestingDemo lang={lang} />}
 
-                    {!['expense-tracker-react', 'recipe-scaler-react', 'medication-reminder-next', 'zivo-marketplace-next', 'electricity-estimator-next'].includes(selectedProject.id) && (
+                    {!['mini-product-catalog', 'product-review-rating', 'expense-tracker-react', 'recipe-scaler-react', 'medication-reminder-next', 'zivo-marketplace-next', 'electricity-estimator-next', 'qa-testing-ecommerce'].includes(selectedProject.id) && (
                       <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/80 text-center space-y-4 shadow-sm">
                         <Sparkles className="w-10 h-10 text-teal-600 dark:text-teal-400 mx-auto animate-pulse" />
                         <h4 className="text-lg font-bold text-slate-900 dark:text-white">
@@ -380,14 +405,20 @@ export default function Portfolio({ lang, onModalToggle }: PortfolioProps) {
                 {modalTab === 'code' && (
                   <div className="mb-6 space-y-3">
                     {(() => {
-                      const codeText = SOURCE_CODES[selectedProject.id] || `// ${selectedProject.title.en} (${selectedProject.category})\n// Standard modern component implementation\n\nimport React from 'react';\n\nexport default function ${selectedProject.id.replace(/-/g, '_')}() {\n  return (\n    <div className="p-4 bg-slate-800 text-white rounded-xl">\n      <h2 className="text-xl font-bold">${selectedProject.title.id}</h2>\n      <p>${selectedProject.description.id}</p>\n    </div>\n  );\n}`;
+                      const codeText = selectedProject.id === 'qa-testing-ecommerce'
+                        ? QA_TESTING_SOURCE_CODE
+                        : (SOURCE_CODES[selectedProject.id] || `// ${selectedProject.title.en} (${selectedProject.category})\n// Standard modern component implementation\n\nimport React from 'react';\n\nexport default function ${selectedProject.id.replace(/-/g, '_')}() {\n  return (\n    <div className="p-4 bg-slate-800 text-white rounded-xl">\n      <h2 className="text-xl font-bold">${selectedProject.title.id}</h2>\n      <p>${selectedProject.description.id}</p>\n    </div>\n  );\n}`);
+
+                      const fileLabel = selectedProject.id === 'qa-testing-ecommerce'
+                        ? 'app/scripts/login.js & products.js (Intentional Defects)'
+                        : (selectedProject.category === 'Next.js' ? 'app/page.tsx' : 'src/App.tsx');
 
                       return (
                         <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm">
                           <div className="flex items-center justify-between bg-slate-100 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800">
                             <span className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400 flex items-center gap-1.5">
                               <FileCode className="w-3.5 h-3.5" />
-                              <span>{selectedProject.category === 'Next.js' ? 'app/page.tsx' : 'src/App.tsx'}</span>
+                              <span>{fileLabel}</span>
                             </span>
                             <button
                               onClick={() => handleCopyCode(codeText)}

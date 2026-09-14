@@ -13,7 +13,14 @@ interface NavbarProps {
   isModalOpen?: boolean;
 }
 
-export default function Navbar({ darkMode, setDarkMode, lang, setLang, activeSection, isModalOpen }: NavbarProps) {
+export default function Navbar({
+  darkMode,
+  setDarkMode,
+  lang,
+  setLang,
+  activeSection,
+  isModalOpen
+}: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

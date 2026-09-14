@@ -24,7 +24,17 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-teal-500 transition-colors;
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: #334155;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #14b8a6;
 }
 
 /* Glowing animations & Mesh background */
@@ -65,18 +75,18 @@
 @media print {
   @page {
     size: A4 portrait;
-    margin: 12mm;
+    margin: 10mm;
   }
 
   body {
     background: white !important;
-    color: black !important;
+    color: #0f172a !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
   /* Hide all non-printable elements */
-  header, nav, main, footer, .print\:hidden {
+  header, nav, main, footer, .print\:hidden, #back-to-top {
     display: none !important;
   }
 
@@ -90,5 +100,78 @@
   .overflow-y-auto {
     overflow: visible !important;
   }
+
+  /* Prevent URL appending on printed links */
+  a[href]:after {
+    content: none !important;
+  }
+}
+
+/* PDF Export Layout & Color Standardization */
+.cv-pdf-export {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cv-pdf-export * {
+  box-sizing: border-box;
+}
+
+.cv-pdf-export .text-slate-900,
+.cv-pdf-export h1,
+.cv-pdf-export h2,
+.cv-pdf-export h3 {
+  color: #0f172a !important;
+}
+
+.cv-pdf-export .text-slate-800 {
+  color: #1e293b !important;
+}
+
+.cv-pdf-export .text-slate-600,
+.cv-pdf-export .text-slate-500,
+.cv-pdf-export .text-slate-400 {
+  color: #475569 !important;
+}
+
+.cv-pdf-export .text-teal-600,
+.cv-pdf-export .text-teal-500,
+.cv-pdf-export .text-teal-400 {
+  color: #0d9488 !important;
+}
+
+.cv-pdf-export .text-emerald-700,
+.cv-pdf-export .text-emerald-600,
+.cv-pdf-export .text-emerald-500,
+.cv-pdf-export .text-emerald-400,
+.cv-pdf-export .text-emerald-300 {
+  color: #047857 !important;
+}
+
+.cv-pdf-export .bg-slate-50,
+.cv-pdf-export .bg-slate-50\/90 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+.cv-pdf-export .bg-white {
+  background-color: #ffffff !important;
+}
+
+.cv-pdf-export .border-slate-200,
+.cv-pdf-export .border-slate-200\/80,
+.cv-pdf-export .border-slate-200\/60,
+.cv-pdf-export .border-slate-100 {
+  border-color: #e2e8f0 !important;
+}
+
+.cv-pdf-export .border-teal-500 {
+  border-color: #14b8a6 !important;
+}
+
+.cv-pdf-export .print\:hidden {
+  display: none !important;
 }
 

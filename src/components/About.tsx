@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Award, BookOpen, HeartHandshake, CheckCircle2 } from 'lucide-react';
 import { FaInstagram, FaGithub, FaLinkedin, FaXTwitter, FaEnvelope } from 'react-icons/fa6';
-import { PERSONAL_INFO, LEARNING_JOURNEY, UI_TRANSLATIONS } from '../data/portfolioData';
+import { PERSONAL_INFO, LEARNING_JOURNEY, UI_TRANSLATIONS, PROJECTS } from '../data/portfolioData';
 import { Language } from '../types';
 
 interface AboutProps {
@@ -71,7 +71,7 @@ export default function About({ lang }: AboutProps) {
 
             <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-100 dark:border-slate-700/60">
               <div className="text-center">
-                <span className="text-2xl sm:text-3xl font-extrabold text-teal-600 dark:text-teal-400 block">12+</span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-teal-600 dark:text-teal-400 block">{PROJECTS.length}+</span>
                 <span className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">{t.statProjects}</span>
               </div>
               <div className="text-center">

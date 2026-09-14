@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
-import { ArrowDown, Code, Terminal, Sparkles } from 'lucide-react';
+import { ArrowDown, Code, Sparkles, ChevronDown, ShieldCheck } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa6';
+import { SiTailwindcss } from 'react-icons/si';
 import { PERSONAL_INFO, UI_TRANSLATIONS } from '../data/portfolioData';
 import { Language } from '../types';
 
@@ -208,10 +209,25 @@ export default function Hero({ lang }: HeroProps) {
                   className="absolute bottom-6 right-0 p-2.5 rounded-2xl bg-white/90 dark:bg-slate-800/90 shadow-lg border border-slate-200/80 dark:border-slate-700/80 backdrop-blur-md flex items-center gap-2 z-20"
                 >
                   <div className="p-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                    <Terminal className="w-4 h-4" />
+                    <SocialIcon icon={SiTailwindcss} className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold text-slate-800 dark:text-slate-100">Tailwind CSS</span>
                 </motion.div>
+
+                {/* Floating QA Manual Badge */}
+                <motion.a
+                  href="https://qa-testing-portofolio.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+                  className="absolute bottom-2 left-2 p-2.5 rounded-2xl bg-gradient-to-r from-emerald-500/90 to-teal-600/90 text-white shadow-lg shadow-emerald-500/25 border border-emerald-400/40 backdrop-blur-md flex items-center gap-2 z-20 hover:scale-105 transition-transform"
+                >
+                  <div className="p-1 rounded-lg bg-white/20">
+                    <ShieldCheck className="w-3.5 h-3.5 text-white" />
+                  </div>
+                  <span className="text-[11px] font-extrabold tracking-wide">QA Manual (33 TCs)</span>
+                </motion.a>
               </motion.div>
             </div>
           </motion.div>
@@ -227,7 +243,7 @@ export default function Hero({ lang }: HeroProps) {
         className="absolute bottom-6 left-1/2 -translate-x-1/2 p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 border border-slate-200 dark:border-slate-700 shadow-sm transition-colors z-20"
         aria-label="Scroll"
       >
-        <ArrowDown className="w-5 h-5" />
+        <ChevronDown className="w-5 h-5" />
       </motion.a>
     </section>
   );
