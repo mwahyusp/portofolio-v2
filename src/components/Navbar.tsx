@@ -1,335 +1,257 @@
-import { useState, useEffect, MouseEvent } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
-import { Sun, Moon, Menu, X, Sparkles, Globe } from 'lucide-react';
-import { PERSONAL_INFO, UI_TRANSLATIONS } from '../data/portfolioData';
-import { Language } from '../types';
+import { FC, useState, useEffect } from 'react';
+import { FileText, ExternalLink, Menu, X } from 'lucide-react';
+import { personalInfo } from '../data/portfolioData';
 
 interface NavbarProps {
-  darkMode: boolean;
-  setDarkMode: (val: boolean) => void;
-  lang: Language;
-  setLang: (lang: Language) => void;
-  activeSection: string;
-  isModalOpen?: boolean;
+  onOpenResume: () => void;
 }
 
-export default function Navbar({
-  darkMode,
-  setDarkMode,
-  lang,
-  setLang,
-  activeSection,
-  isModalOpen
-}: NavbarProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+interface NavItem {
+  id: string;
+  label: string;
+  href: string;
+}
 
-  const t = UI_TRANSLATIONS[lang].nav;
+const navItems: NavItem[] = [
+  { id: 'about', label: 'About', href: '#about' },
+  { id: 'skills', label: 'Skills', href: '#skills' },
+  { id: 'projects', label: 'Projects', href: '#projects' },
+  { id: 'experience', label: 'Experience', href: '#experience' },
+  { id: 'education', label: 'Education', href: '#education' },
+  { id: 'contact', label: 'Contact', href: '#contact' },
+];
 
-  useEffect(() => {
-    if (isModalOpen) {
-      setMobileMenuOpen(false);
-    }
-  }, [isModalOpen]);
+export const Navbar: FC<NavbarProps> = ({ onOpenResume }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('about');
 
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
+  // Track active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollPosition = window.scrollY + 140;
+
+      for (let i = navItems.length - 1; i >= 0; i--) {
+        const item = navItems[i];
+        const el = document.getElementById(item.id);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPosition >= top) {
+            setActiveSection(item.id);
+            break;
+          }
+        }
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { href: '#home', label: t.home, id: 'home' },
-    { href: '#about', label: t.about, id: 'about' },
-    { href: '#skills', label: t.skills, id: 'skills' },
-    { href: '#portfolio', label: t.portfolio, id: 'portfolio' },
-    { href: '#contact', label: t.contact, id: 'contact' },
-  ];
+  // Close mobile menu on resize to desktop (>= 1024px)
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobileMenuOpen]);
 
-  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+  // Handle ESC key and scroll lock
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isMobileMenuOpen]);
+
+  // Smooth scroll handler with offset for sticky navbar
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
 
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
+
     if (element) {
-      const headerOffset = 70;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const navOffset = 76;
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = Math.max(0, elementPosition - navOffset);
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
-    } else {
-      window.location.hash = href;
-    }
 
-    // Smoothly close drawer shortly after tap to give immediate visual feedback
-    setTimeout(() => {
-      setMobileMenuOpen(false);
-    }, 150);
+      if (window.history.pushState) {
+        window.history.pushState(null, '', href);
+      }
+      setActiveSection(targetId);
+    }
   };
 
   return (
     <>
-      {/* Top Scroll Progress Indicator */}
-      <motion.div
-        className={`fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 via-emerald-400 to-teal-600 z-[100] origin-left transition-opacity duration-300 ${
-          isModalOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
-        style={{ scaleX }}
-      />
+      <header className="sticky top-0 z-40 bg-white border-b border-slate-200/80 shadow-2xs transition-colors no-print">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+          {/* Logo / Brand Name (matches screenshot) */}
+          <a
+            href="#home"
+            onClick={(e) => handleNavClick(e, '#home')}
+            className="text-base sm:text-lg font-bold tracking-tight text-slate-900 hover:text-blue-600 transition-colors truncate focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 rounded-md"
+            aria-label="Mohammad Wahyu Sanusi Putra - Return to top"
+          >
+            {personalInfo.name}
+          </a>
 
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isModalOpen
-            ? 'opacity-0 pointer-events-none -translate-y-full invisible'
-            : 'opacity-100 translate-y-0 visible'
-        } ${
-          isScrolled
-            ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg border-b border-slate-200/50 dark:border-slate-800/50 py-3'
-            : 'bg-transparent py-5'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <a
-              href="#home"
-              onClick={(e) => handleNavClick(e, '#home')}
-              className="group flex items-center gap-2 text-xl font-bold text-teal-600 dark:text-teal-400 focus:outline-none"
+          {/* Desktop Horizontal Navigation (1024px and above) */}
+          <nav
+            className="hidden lg:flex items-center gap-6 text-sm font-medium"
+            aria-label="Desktop Navigation"
+          >
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className={`transition-colors whitespace-nowrap focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 rounded-md py-1 px-1.5 ${
+                    isActive
+                      ? 'text-blue-600 font-bold'
+                      : 'text-slate-700 hover:text-slate-900'
+                  }`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Right Header Actions */}
+          <div className="flex items-center gap-3 shrink-0">
+            {/* CV Badge Button (matches screenshot) */}
+            <button
+              onClick={onOpenResume}
+              className="bg-[#0f172a] hover:bg-slate-800 text-white font-bold text-xs px-2.5 py-1 rounded-md tracking-wider transition-colors shadow-xs active:scale-95 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600"
+              aria-label="View and Download CV"
             >
-              <div className="relative overflow-hidden rounded-lg p-1 transition-transform group-hover:scale-105">
-                <picture>
-                  <source type="image/webp" srcSet={PERSONAL_INFO.logoWebp} />
-                  <img
-                    src={PERSONAL_INFO.logoPng}
-                    alt="Logo MWSP"
-                    className="h-9 w-auto object-contain transition-opacity duration-300"
-                  />
-                </picture>
-              </div>
-              <span className="hidden sm:inline-block font-mono text-sm font-semibold tracking-wider text-slate-700 dark:text-slate-200 group-hover:text-teal-500 transition-colors">
-                MWSP.dev
-              </span>
-            </a>
+              CV
+            </button>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1 bg-slate-100/70 dark:bg-slate-800/70 p-1.5 rounded-full border border-slate-200/60 dark:border-slate-700/60 backdrop-blur-sm">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.id;
-                return (
-                  <a
-                    key={link.id}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
-                      isActive
-                        ? 'text-teal-700 dark:text-teal-300 font-semibold'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400'
-                    }`}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="active-nav-pill"
-                        className="absolute inset-0 bg-teal-500/15 dark:bg-teal-500/25 rounded-full border border-teal-500/30"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                    <span className="relative z-10">{link.label}</span>
-                  </a>
-                );
-              })}
-            </nav>
+            {/* Mobile & Tablet Toggle Button (matches screenshot) */}
+            <button
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation-menu"
+              className="lg:hidden p-1 text-slate-800 hover:text-slate-900 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 rounded-md"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6 stroke-[2.2]" />
+              ) : (
+                <Menu className="w-6 h-6 stroke-[2.2]" />
+              )}
+            </button>
+          </div>
+        </div>
+      </header>
 
-            {/* Right Action Controls: Language Switcher, Theme Switcher, Hire Me CTA */}
-            <div className="flex items-center gap-2 sm:gap-3">
-              
-              {/* Language Switcher Segmented Control */}
-              <div className="flex items-center p-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold">
-                <button
-                  onClick={() => setLang('id')}
-                  className={`relative px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 ${
-                    lang === 'id'
-                      ? 'text-white font-bold'
-                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                  aria-label="Ubah ke Bahasa Indonesia"
-                >
-                  {lang === 'id' && (
-                    <motion.div
-                      layoutId="active-lang-pill"
-                      className="absolute inset-0 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full shadow-xs"
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10 flex items-center gap-1">
-                    <span>🇮🇩</span>
-                    <span>ID</span>
-                  </span>
-                </button>
+      {/* Mobile & Tablet Menu Overlay & Drawer (Matches screenshot pixel-for-pixel) */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 top-16 z-30 lg:hidden">
+          {/* Subtle dim backdrop to close when clicking outside */}
+          <div
+            className="fixed inset-0 top-16 bg-slate-900/30 backdrop-blur-[2px] transition-opacity animate-in fade-in duration-150"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
 
-                <button
-                  onClick={() => setLang('en')}
-                  className={`relative px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 ${
-                    lang === 'en'
-                      ? 'text-white font-bold'
-                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                  aria-label="Switch to English"
-                >
-                  {lang === 'en' && (
-                    <motion.div
-                      layoutId="active-lang-pill"
-                      className="absolute inset-0 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full shadow-xs"
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10 flex items-center gap-1">
-                    <span>🇬🇧</span>
-                    <span>EN</span>
-                  </span>
-                </button>
-              </div>
-
-              {/* Theme Toggle Button */}
-              <motion.button
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.92 }}
-                onClick={() => setDarkMode(!darkMode)}
-                className="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm hover:border-teal-500 dark:hover:border-teal-400 transition-colors relative group"
-                aria-label={darkMode ? t.lightMode : t.darkMode}
-                title={darkMode ? t.lightMode : t.darkMode}
-              >
-                <motion.div
-                  initial={false}
-                  animate={{ rotate: darkMode ? 180 : 0, scale: [0.8, 1.1, 1] }}
-                  transition={{ duration: 0.4, ease: 'easeOut' }}
-                >
-                  {darkMode ? (
-                    <Sun className="w-5 h-5 text-amber-400 fill-amber-400/20" />
-                  ) : (
-                    <Moon className="w-5 h-5 text-slate-700 fill-slate-700/20" />
-                  )}
-                </motion.div>
-              </motion.button>
-
-              {/* Hire Me Desktop Pill */}
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="https://linkedin.com/in/mwahyusp"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-gradient-to-r from-teal-500 to-emerald-600 text-white shadow-md shadow-teal-500/20 hover:shadow-teal-500/40 transition-all"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>{t.hireMe}</span>
-              </motion.a>
-
-              {/* Mobile Hamburger Toggle */}
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 focus:outline-none transition-colors"
-                aria-label="Toggle Mobile Menu"
-              >
-                <AnimatePresence mode="wait">
-                  {mobileMenuOpen ? (
-                    <motion.div
-                      key="close"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.15 }}
+          {/* Drawer Menu Panel */}
+          <div
+            id="mobile-navigation-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation Menu"
+            className="relative z-40 bg-white border-b border-slate-200 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto animate-in slide-in-from-top-2 duration-200"
+          >
+            <div className="max-w-6xl mx-auto px-6 pt-2 pb-6 space-y-4">
+              {/* Vertical Navigation Links with thin dividers */}
+              <nav className="divide-y divide-slate-100" aria-label="Mobile Navigation Links">
+                {navItems.map((item) => {
+                  const isActive = activeSection === item.id;
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e, item.href)}
+                      className={`block py-3.5 text-base font-normal transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 ${
+                        isActive
+                          ? 'text-slate-900 font-semibold'
+                          : 'text-slate-700 hover:text-slate-900'
+                      }`}
+                      aria-current={isActive ? 'page' : undefined}
                     >
-                      <X className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="menu"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.15 }}
-                    >
-                      <Menu className="w-5 h-5" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.button>
+                      {item.label}
+                    </a>
+                  );
+                })}
+              </nav>
+
+              {/* Primary View & Download CV Action Button (matches screenshot) */}
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onOpenResume();
+                }}
+                className="w-full mt-2 py-3 px-4 bg-[#0f172a] hover:bg-slate-800 text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.99] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600"
+              >
+                <FileText className="w-4 h-4" />
+                <span>View &amp; Download CV</span>
+              </button>
+
+              {/* GitHub ↗ · LinkedIn ↗ Links (matches screenshot) */}
+              <div className="pt-2 flex items-center justify-center gap-3 text-xs text-slate-500 font-medium">
+                <a
+                  href={personalInfo.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-slate-900 transition-colors"
+                >
+                  <span>GitHub</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+                <span className="text-slate-300">·</span>
+                <a
+                  href={personalInfo.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-slate-900 transition-colors"
+                >
+                  <span>LinkedIn</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Mobile Nav Drawer */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-2xl"
-            >
-              <div className="px-4 pt-3 pb-6 space-y-1.5">
-                {navLinks.map((link) => {
-                  const isActive = activeSection === link.id;
-                  return (
-                    <motion.a
-                      key={link.id}
-                      href={link.href}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={(e) => handleNavClick(e, link.href)}
-                      className={`relative block px-4 py-3 rounded-xl text-base font-medium transition-colors duration-200 ${
-                        isActive
-                          ? 'text-teal-700 dark:text-teal-300 font-semibold'
-                          : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/80'
-                      }`}
-                    >
-                      {isActive && (
-                        <motion.div
-                          layoutId="active-mobile-nav-pill"
-                          className="absolute inset-0 bg-teal-500/15 dark:bg-teal-500/25 rounded-xl border border-teal-500/30"
-                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                        />
-                      )}
-                      <span className="relative z-10 flex items-center justify-between">
-                        <span>{link.label}</span>
-                        {isActive && (
-                          <span className="w-2 h-2 rounded-full bg-teal-500 dark:bg-teal-400 shadow-sm shadow-teal-500/50" />
-                        )}
-                      </span>
-                    </motion.a>
-                  );
-                })}
-                <div className="pt-3">
-                  <motion.a
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.97 }}
-                    href="https://linkedin.com/in/mwahyusp"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-teal-500 to-emerald-600 text-white shadow-md shadow-teal-500/20"
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    <span>{t.hireMeLinkedIn}</span>
-                  </motion.a>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+      )}
     </>
   );
-}
+};

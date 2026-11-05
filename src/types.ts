@@ -1,81 +1,108 @@
-export type Language = 'id' | 'en';
-
-export type CategoryType = 'Semua' | 'React' | 'Next.js' | 'Interactive Apps' | 'QA & Testing' | 'All';
-
-export interface LocalizedText {
-  id: string;
-  en: string;
-}
-
-export interface CaseStudyMetric {
-  label: LocalizedText;
-  value: string;
-  description: LocalizedText;
-}
-
-export interface CaseStudyDecision {
-  title: LocalizedText;
-  description: LocalizedText;
-  tags?: string[];
-}
-
-export interface CaseStudy {
-  problemContext: LocalizedText;
-  technicalChallenges: LocalizedText[];
-  architecturalDecisions: CaseStudyDecision[];
-  keyMetrics: CaseStudyMetric[];
-}
+export type CareerTrack = 'all' | 'it-support' | 'frontend' | 'qa-testing';
 
 export interface Project {
   id: string;
-  title: LocalizedText;
-  category: CategoryType;
-  description: LocalizedText;
-  detailedDescription?: LocalizedText;
-  imageWebp: string;
-  imagePng: string;
-  liveDemoUrl: string;
-  githubUrl?: string;
+  title: string;
+  category: 'Manual QA Testing' | 'Frontend Development';
+  track: 'qa-testing' | 'frontend';
+  shortDescription: string;
+  fullDescription: string;
+  image: string;
+  githubUrl: string;
+  liveDemoUrl?: string;
+  technologies: string[];
+  purpose: string;
+  tags?: string[];
+  mainFeatures: string[];
+  qaArtifacts?: {
+    totalTestCases: number;
+    regressionScenarios: number;
+    bugReportsCount: number;
+    intentionalDefects: number;
+    testPlanSummary: string;
+    rtmSummary: string;
+    sampleTestCases: {
+      id: string;
+      title: string;
+      module: string;
+      precondition: string;
+      testSteps: string[];
+      expectedResult: string;
+      type: 'Positive' | 'Negative' | 'Boundary';
+    }[];
+    sampleBugReports: {
+      id: string;
+      title: string;
+      severity: 'Critical' | 'Major' | 'Medium' | 'Minor';
+      priority: 'High' | 'Medium' | 'Low';
+      stepsToReproduce: string[];
+      expectedResult: string;
+      actualResult: string;
+      rootCause?: string;
+      suggestedFix?: string;
+    }[];
+  };
+}
+
+export interface QADiscipline {
+  id: string;
+  title: string;
+  badge: string;
+  description: string;
   tags: string[];
-  featured?: boolean;
-  caseStudy?: CaseStudy;
 }
 
-export interface Skill {
-  name: string;
-  category: 'Frontend' | 'Framework' | 'Backend' | 'Database & Cloud' | 'Tools' | 'QA & Testing';
-  level: number; // 0 to 100
-  iconName: string;
-  description: LocalizedText;
+export interface QADefectItem {
+  id: string;
+  title: string;
+  severity: 'Critical' | 'Major' | 'Medium' | 'Minor';
+  priority: 'High' | 'Medium' | 'Low';
+  module: string;
+  stepsToReproduce: string[];
+  expectedResult: string;
+  actualResult: string;
+  rootCause: string;
+  suggestedFix: string;
 }
 
-export interface LearningJourney {
-  title: LocalizedText;
-  organization: string;
+export interface WorkExperience {
+  role: string;
+  companyOrContext: string;
   period: string;
-  description: LocalizedText;
-  badge: LocalizedText;
+  duration?: string;
+  contractType?: string;
+  location?: string;
+  type: 'employment' | 'career-break';
+  summary: string;
+  highlights: string[];
+  skillsDemonstrated: string[];
+  relatedTracks: CareerTrack[];
 }
 
-export interface WorkExperienceItem {
-  company: string;
-  location: string;
-  role: LocalizedText;
-  period: string;
-  highlights: LocalizedText[];
-  achievements?: LocalizedText;
+export interface SkillCategory {
+  title: string;
+  track: CareerTrack;
+  description: string;
+  skills: {
+    name: string;
+    context: string;
+  }[];
 }
 
 export interface EducationItem {
+  degree: string;
   institution: string;
-  degree: LocalizedText;
-  field?: LocalizedText;
   period: string;
-  type: 'degree' | 'course';
+  notes?: string;
+  status: 'Completed' | 'Continuous Learning';
 }
 
-export interface CertificationItem {
+export interface AdditionalRepository {
   title: string;
-  issuer: string;
-  year: string;
+  description: string;
+  technologies: string[];
+  githubUrl: string;
+  liveDemoUrl?: string;
+  purpose: string;
 }
+
