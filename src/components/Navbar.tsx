@@ -117,7 +117,7 @@ export const Navbar: FC<NavbarProps> = ({ onOpenResume }) => {
             aria-label="Mohammad Wahyu Sanusi Putra - Return to top"
           >
             <img
-              src="/public/images/logo_mwsp.png"
+              src="/images/logo_mwsp.png"
               alt="MWSP Logo"
               className="w-8 h-8 rounded-lg object-contain shrink-0 border border-slate-200/90 bg-white p-0.5 shadow-2xs"
             />
